@@ -1,0 +1,59 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "api", "api\api.csproj", "{67C0EC87-F25F-45B9-A367-D55F03530ACD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "service", "service\service.csproj", "{7F2A7B3E-9AC7-494A-B836-31E713D7EE53}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "infrastructure", "infrastructure\infrastructure.csproj", "{60DE3AC2-3140-4B5B-A829-AE12533153C4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TaxaAPIs", "TaxaAPIs", "{18A06BA7-3AB2-4F55-A696-5BCBBB9F7F0D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mockTaxi", "TaxaAPIs\mockTaxi\mockTaxi.csproj", "{1495B3D2-43E2-4941-99AD-3795B061C45B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "falseTaxi", "TaxaAPIs\falseTaxi\falseTaxi.csproj", "{99183D70-3ED6-4E95-93B2-95D11D662C8D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "definitelyNotATaxi", "TaxaAPIs\definitelyNotATaxi\definitelyNotATaxi.csproj", "{ACA35601-AC18-49D5-A63D-7738F866B8C3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{67C0EC87-F25F-45B9-A367-D55F03530ACD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67C0EC87-F25F-45B9-A367-D55F03530ACD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67C0EC87-F25F-45B9-A367-D55F03530ACD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67C0EC87-F25F-45B9-A367-D55F03530ACD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F2A7B3E-9AC7-494A-B836-31E713D7EE53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F2A7B3E-9AC7-494A-B836-31E713D7EE53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F2A7B3E-9AC7-494A-B836-31E713D7EE53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F2A7B3E-9AC7-494A-B836-31E713D7EE53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60DE3AC2-3140-4B5B-A829-AE12533153C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60DE3AC2-3140-4B5B-A829-AE12533153C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60DE3AC2-3140-4B5B-A829-AE12533153C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60DE3AC2-3140-4B5B-A829-AE12533153C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1495B3D2-43E2-4941-99AD-3795B061C45B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1495B3D2-43E2-4941-99AD-3795B061C45B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1495B3D2-43E2-4941-99AD-3795B061C45B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1495B3D2-43E2-4941-99AD-3795B061C45B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99183D70-3ED6-4E95-93B2-95D11D662C8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99183D70-3ED6-4E95-93B2-95D11D662C8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99183D70-3ED6-4E95-93B2-95D11D662C8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99183D70-3ED6-4E95-93B2-95D11D662C8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACA35601-AC18-49D5-A63D-7738F866B8C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACA35601-AC18-49D5-A63D-7738F866B8C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACA35601-AC18-49D5-A63D-7738F866B8C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACA35601-AC18-49D5-A63D-7738F866B8C3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1495B3D2-43E2-4941-99AD-3795B061C45B} = {18A06BA7-3AB2-4F55-A696-5BCBBB9F7F0D}
+		{99183D70-3ED6-4E95-93B2-95D11D662C8D} = {18A06BA7-3AB2-4F55-A696-5BCBBB9F7F0D}
+		{ACA35601-AC18-49D5-A63D-7738F866B8C3} = {18A06BA7-3AB2-4F55-A696-5BCBBB9F7F0D}
+	EndGlobalSection
+EndGlobal
