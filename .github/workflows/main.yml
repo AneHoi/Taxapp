@@ -20,5 +20,8 @@ jobs:
         with:
           dotnet-version: '8'
           
-      - name: run all tests
-        run: cd test && dotnet test
+      - name: turn on API
+        run: cd TaxaAPIs/api && dotnet run
+
+      - name: run all tests (But first sleep for 30 seconds)
+        run: cd test && sleep 60 && dotnet build && dotnet test
