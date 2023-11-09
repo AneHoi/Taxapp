@@ -1,0 +1,31 @@
+
+ion-input{
+  background-color: #00B0FF;
+  text-align: center;
+  align-items: center;
+  border-radius: 25px;
+}
+ion-button{
+  //background-color: #1967D2;
+  --background: #1967D2;
+  --border-radius: 25px;
+  --background-hover: #134a9f;
+}
+div{
+  /*The size of the element*/
+  /*position element in the center X and Y coordinates*/
+  //transform: translate(50%, 70%);
+  /*Center elements inside the box*/
+  text-align: center;
+}
+.parentdiv{
+  height: 75%;
+  align-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.childdiv{
+  width: 50%;
+  margin: auto;
+}

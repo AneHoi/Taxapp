@@ -1,32 +1,22 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace api.Controllers;
+namespace Taxapp.Controllers;
 
 [ApiController]
 [Route("[controller]")]
 public class WeatherForecastController : ControllerBase
 {
-    private static readonly string[] Summaries = new[]
-    {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
-
-    private readonly ILogger<WeatherForecastController> _logger;
-
-    public WeatherForecastController(ILogger<WeatherForecastController> logger)
-    {
-        _logger = logger;
-    }
-
-    [HttpGet(Name = "GetWeatherForecast")]
-    public IEnumerable<WeatherForecast> Get()
-    {
-        return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-        {
-            Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            TemperatureC = Random.Shared.Next(-20, 55),
-            Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-        })
-        .ToArray();
-    }
+    //CONTROLLER/GUI = API
+    //BLL = Service --> processing and calculations sends to DAL
+    //DAL = Infrastructure --> Call Google API. Call API's.
+    /**
+     * 1. get destinations fom controller
+     * 2. send data to BLL
+     * 3. send data to DAL
+     * 4. send data to Google API and get data back
+     * 5. send data to BLL
+     * 6. process data and send "Distance, persons, time...." DAL
+     * 7. DAL recive data from our own API's and sends it back op to BLL
+     * 8. BLL sends data back up to GUI
+    */
 }
