@@ -1,3 +1,15 @@
 <ion-app>
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-title>
+        Taxapp
+      </ion-title>
+      <ion-button routerLink="login">Login</ion-button>
+      <ion-button routerLink="home">Home</ion-button>
+    </ion-toolbar>
+  </ion-header>
+
+  <!--Router outlet for enabling the user to go to the different components-->
   <ion-router-outlet></ion-router-outlet>
+
 </ion-app>
