@@ -1,0 +1,15 @@
+.content {
+  min-height: calc(100vh - 64px);
+  display: flex;
+}
+
+.container {
+  height: calc(100vh - 50px - 50px);
+}
+.centerElements{
+  height: 75%;
+  align-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

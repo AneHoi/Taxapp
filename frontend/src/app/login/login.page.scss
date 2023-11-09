@@ -6,16 +6,12 @@ ion-input{
   border-radius: 25px;
 }
 ion-button{
-  //background-color: #1967D2;
   --background: #1967D2;
   --border-radius: 25px;
   --background-hover: #134a9f;
 }
 div{
-  /*The size of the element*/
-  /*position element in the center X and Y coordinates*/
-  //transform: translate(50%, 70%);
-  /*Center elements inside the box*/
+  /*Center elements inside the div*/
   text-align: center;
 }
 .parentdiv{
