@@ -25,3 +25,20 @@
 #container a {
   text-decoration: none;
 }
+
+.ionContainer{
+  width: 35%;
+  margin: 20px;
+}
+
+ion-input{
+  margin: 10px;
+}
+ion-button{
+  --background: #1967D2;
+  --border-radius: 25px;
+  --background-hover: #134a9f;
+  width: auto;
+  height: 40px;
+  font-size: 18px
+}
