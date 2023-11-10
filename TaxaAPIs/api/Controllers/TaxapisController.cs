@@ -29,12 +29,10 @@ public class TaxapisController : ControllerBase
     [Route("/DefinetlyNotTaxaPrice/{distance},{minutes},{persons}")]
     public object GetPriceDefenetlyNotTaxa([FromRoute] int distance, int minutes, int persons)
     {
-        double[] doubles = {8.0,4.8,6.9,9.2};
-        return doubles;
-        /**return new
+        return new
         {
             response = CalculatePrice(25 ,distance ,15, minutes, 9,persons)
-        };*/
+        };
     }
     
     private object CalculatePrice(int startPrice, int distance, int kmPrice, int minutes, int minutePrice, int persons)
