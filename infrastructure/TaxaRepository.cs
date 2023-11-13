@@ -14,13 +14,14 @@ public class TaxaRepository
     }
 
 
-    public async Task<double[]> GetTaxaPrices(int km, int min, int per)
+    public Task<double[]> GetTaxaPrices(int km, int min, int per)
     {
         var addressLookupUrl = "http://localhost:5000/GetTaxaPrices/" + km + "," + min + "," + per;
-        var response = await _httpClient.GetAsync(addressLookupUrl);
-        return JsonSerializer.Deserialize<double[]>(await response.Content.ReadAsStringAsync()) ??
-               throw new InvalidOperationException();
+        var response = _httpClient.GetAsync(addressLookupUrl).Result;
+        return Task.FromResult(JsonSerializer.Deserialize<double[]>(response.Content.ReadAsStringAsync().Result) ??
+                               throw new InvalidOperationException());
     }
+
 }
 
 

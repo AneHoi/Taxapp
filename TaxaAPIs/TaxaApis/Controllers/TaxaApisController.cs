@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace api.Controllers;
 
 public class TaxaApisController : ControllerBase
@@ -39,10 +40,10 @@ public class TaxaApisController : ControllerBase
         double priceFalseTaxi = GetPriceFalseTaxi(km, min, per);
         double priceMockTaxi = GetPriceMockTaxi(km, min, per);
         double priceDefinitelyNotATaxa = GetPriceDefinitelyNotATaxa(km, min, per);
-        
+    
         double[] prices = { priceFalseTaxi, priceMockTaxi, priceDefinitelyNotATaxa };
-
         return prices;
     }
-
+    
+  
 }
