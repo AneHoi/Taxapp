@@ -9,6 +9,7 @@ tmp/
 app/**/*.js
 app/**/*.js.map
 
+
 # dependencies
 node_modules/
 bower_components/
@@ -72,5 +73,7 @@ $RECYCLE.BIN/
 .DS_Store
 Thumbs.db
 UserInterfaceState.xcuserstate
+
+api/ApiKey/GoogleApiKey.ts
 
 # End of https://www.toptal.com/developers/gitignore/api/angular,dotnetcore,ionic3
