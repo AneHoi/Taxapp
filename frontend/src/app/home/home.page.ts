@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-home',
@@ -9,6 +10,11 @@ export class HomePage {
   date: string | undefined;
   datetimeValue: string | undefined;
 
-  constructor() {}
 
+  constructor() {
+  }
+
+  async searchForPrices() {
+    
+  }
 }

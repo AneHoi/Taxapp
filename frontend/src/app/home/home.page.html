@@ -31,10 +31,25 @@
         <ion-select-option value="2">2</ion-select-option>
         <ion-select-option value="3">3</ion-select-option>
       </ion-select>
-      <ion-button slot="end">Search</ion-button>
+      <ion-button (click)="searchForPrices()" slot="end">Search</ion-button>
     </ion-item>
 
   </div>
+  <div>
+    <br>
+    <ion-grid>
+      <ion-col>
+        <ion-row>
+          <ion-item>
+          <ion-card class="taxiPrice">
+
+          </ion-card>
+          </ion-item>
+        </ion-row>
+      </ion-col>
+    </ion-grid>
+  </div>
+
   <div>
     <br>
     <br>

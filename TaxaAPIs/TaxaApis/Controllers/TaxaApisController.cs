@@ -34,13 +34,13 @@ public class TaxaApisController : ControllerBase
     }
 
     [HttpGet]
-    [Route("/GetTaxaPrices/{km},{min},{per}")] 
+    [Route("/GetTaxaPrices/{km},{min},{per}")]
     public double[] GetTaxaPrices([FromRoute] int km, int min, int per)
     {
         double priceFalseTaxi = GetPriceFalseTaxi(km, min, per);
         double priceMockTaxi = GetPriceMockTaxi(km, min, per);
         double priceDefinitelyNotATaxa = GetPriceDefinitelyNotATaxa(km, min, per);
-    
+
         double[] prices = { priceFalseTaxi, priceMockTaxi, priceDefinitelyNotATaxa };
         return prices;
     }
