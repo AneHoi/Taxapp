@@ -1,3 +1,4 @@
+using api.Models;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -33,16 +34,23 @@ public class TaxaApisController : ControllerBase
         return startPrice + distance * kmPrice + minutes * minutePrice * persons;
     }
 
+    [ProducesResponseType(typeof(TaxiPricesDto), 200)]
     [HttpGet]
     [Route("/GetTaxaPrices/{km},{min},{per}")]
-    public double[] GetTaxaPrices([FromRoute] int km, int min, int per)
+    public TaxiPricesDto GetTaxaPrices([FromRoute] int km, int min, int per)
     {
-        double priceFalseTaxi = GetPriceFalseTaxi(km, min, per);
-        double priceMockTaxi = GetPriceMockTaxi(km, min, per);
-        double priceDefinitelyNotATaxa = GetPriceDefinitelyNotATaxa(km, min, per);
+        TaxiPricesDto taxiPricesDto = new TaxiPricesDto();
 
-        double[] prices = { priceFalseTaxi, priceMockTaxi, priceDefinitelyNotATaxa };
-        return prices;
+        taxiPricesDto.AddTaxiCompany("FalseTaxi");
+        taxiPricesDto.SetTaxiCompanyPrice("FalseTaxi", GetPriceFalseTaxi(km, min, per));
+
+        taxiPricesDto.AddTaxiCompany("MockTaxi");
+        taxiPricesDto.SetTaxiCompanyPrice("MockTaxi", GetPriceMockTaxi(km, min, per));
+
+        taxiPricesDto.AddTaxiCompany("DefinitelyNotATaxi");
+        taxiPricesDto.SetTaxiCompanyPrice("DefinitelyNotATaxi", GetPriceDefinitelyNotATaxa(km, min, per));
+
+        return taxiPricesDto;
     }
     
   
