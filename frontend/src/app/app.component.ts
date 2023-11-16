@@ -6,23 +6,21 @@ declare var google: any;
 
 @Component({
   selector: 'app-root',
-  templateUrl: `
-    <html lang='en'>
+  template: `
 <head>
   <meta charset="utf-8">
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src= "https://maps.googleapis.com/maps/api/js?key=" + GOOGLEAPIKEY + "&libraries=places" ></script>
 </head>
 <body>
   <app-root></app-root>
 </body>
-</html>
   `,
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent implements OnInit{
-  @ViewChild('mapContainer') mapContainer: ElementRef;
+  @ViewChild('mapContainer')
+  mapContainer!: ElementRef;
 
   private  map: any;
   private directionService: any;
@@ -33,7 +31,14 @@ export class AppComponent implements OnInit{
     this.initializeMap();
   }
 
-  private initializeMap(){
+  private initializeMap() {
+    const script = document.createElement('script');
+    script.src = 'https://maps.googleapis.com/maps/api/js?key=' + GOOGLEAPIKEY + '&libraries=places&callback=initMap';
+    script.async = true;
+    document.head.appendChild(script);
+  }
+
+  public initeMap(){
     this.map = new google.map.Map(this.mapContainer.nativeElement, {
       center: {lat: 0, lng: 0},
       zoom: 2,
