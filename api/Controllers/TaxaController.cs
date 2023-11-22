@@ -1,3 +1,4 @@
+using api.Models;
 using api.TransferModels;
 using Microsoft.AspNetCore.Mvc;
 using service;
@@ -20,13 +21,27 @@ public class TaxaController : ControllerBase
 
     [HttpGet]
     [Route("/TaxaApis/GetTaxaPrices/{km},{min},{per}")]
-    public ResponseDto GetTaxaPrices(int km, int min, int per)
+    public async Task<ResponseDto<TaxiPricesDto>> GetTaxaPrices(int km, int min, int per)
     {
-        HttpContext.Response.StatusCode = 200;
-        return new ResponseDto()
+        try
         {
-            MessageToClient = "Successfully fetched",
-            ResponseData = _taxaService.GetTaxaPrices(km,min,per)
-        };
+            var taxiPricesDto = await _taxaService.GetTaxaPricesAsync(km, min, per);
+
+            return new ResponseDto<TaxiPricesDto>()
+            {
+                MessageToClient = "Successfully fetched",
+                ResponseData = taxiPricesDto
+            };
+        }
+        catch (Exception ex)
+        {
+            HttpContext.Response.StatusCode = 500;
+            return new ResponseDto<TaxiPricesDto>()
+            {
+                MessageToClient = $"Error: {ex.Message}",
+                ResponseData = null
+            };
+        }
     }
+
 }

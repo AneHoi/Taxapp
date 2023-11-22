@@ -1,8 +1,7 @@
 ﻿namespace api.TransferModels;
 
-public class ResponseDto
+public class ResponseDto<T>
 {
     public string MessageToClient { get; set; }
-    public Object? ResponseData { get; set; }
-    
+    public T ResponseData { get; set; }
 }
