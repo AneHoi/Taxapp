@@ -6,7 +6,7 @@ namespace testDir;
 public class Tests
 {
     private HttpClient _httpClient;
-    
+
     [SetUp]
     public void Setup()
     {
@@ -19,14 +19,13 @@ public class Tests
     {
         //Arrange
         //ACT
-        var response = await _httpClient.GetFromJsonAsync<Reponse>(address);
+        var answer = await _httpClient.GetFromJsonAsync<Response>(address);
         //ASSERT
-        response.Response.Should().Be(expected);
+        answer?.ExpectedResponse.Should().Be(expected);
     }
-    
 }
 
-class Reponse
+class Response
 {
-    public int Response {get; set; }
+    public int ExpectedResponse { get; set; }
 }
