@@ -1,5 +1,6 @@
 using System.Net.Http.Json;
 using FluentAssertions;
+using Newtonsoft.Json;
 
 namespace testDir;
 
@@ -19,13 +20,14 @@ public class Tests
     {
         //Arrange
         //ACT
-        var answer = await _httpClient.GetFromJsonAsync<Response>(address);
+        var answer = await _httpClient.GetStringAsync(address);
+        
         //ASSERT
-        answer?.ExpectedResponse.Should().Be(expected);
+        int.Parse(answer).Should().Be(expected);
     }
 }
 
 class Response
 {
-    public int ExpectedResponse { get; set; }
+    public int? ExpectedResponse { get; set; }
 }
