@@ -16,7 +16,7 @@ export class HomePage {
   }
 
   async searchForPrices() {
-    
+
 
   }
 
