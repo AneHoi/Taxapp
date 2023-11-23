@@ -2,6 +2,8 @@
 using System.Text.Json;
 using api.Controllers;
 using api.Models;
+using Newtonsoft.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace infrastructure;
 
@@ -21,12 +23,12 @@ public class TaxaRepository
         var response = await _httpClient.GetAsync(addressLookupUrl);
 
         // Check for successful response status
-        response.EnsureSuccessStatusCode();
+      //  response.EnsureSuccessStatusCode();
 
         // Deserialize the response content
         var content = await response.Content.ReadAsStringAsync();
-        return JsonSerializer.Deserialize<TaxiPricesDto>(content) ??
-               throw new InvalidOperationException("Failed to deserialize response");
+        TaxiPricesDto result = JsonSerializer.Deserialize<TaxiPricesDto>(content);
+        return result;
     }
 
 

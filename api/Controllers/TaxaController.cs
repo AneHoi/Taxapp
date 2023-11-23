@@ -1,7 +1,11 @@
+using System.Text.Json;
 using api.Models;
 using api.TransferModels;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using service;
+using JsonSerializer = System.Text.Json.JsonSerializer;
+
 
 namespace api.Controllers;
 
@@ -26,6 +30,7 @@ public class TaxaController : ControllerBase
         try
         {
             var taxiPricesDto = await _taxaService.GetTaxaPricesAsync(km, min, per);
+       
 
             return new ResponseDto<TaxiPricesDto>()
             {
