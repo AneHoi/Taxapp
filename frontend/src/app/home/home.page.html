@@ -26,12 +26,12 @@
     </ion-popover>
     <br/>
     <ion-item>
-      <ion-select style="width: auto" label="Persons" placeholder="Amount of people">
+      <ion-select [(ngModel)]="persons" style="width: auto" label="Persons" placeholder="Amount of people">
         <ion-select-option value="1">1</ion-select-option>
         <ion-select-option value="2">2</ion-select-option>
         <ion-select-option value="3">3</ion-select-option>
       </ion-select>
-      <ion-button (click)="searchForPrices()" slot="end">Search</ion-button>
+      <ion-button [disabled]="!persons" (click)="searchForPrices(5,5, persons)" slot="end">Search</ion-button>
     </ion-item>
 
   </div>
