@@ -20,6 +20,14 @@ export interface TaxiCompany {
 
 export type TaxiPrices = Record<string, number>;
 
+export class ConfirmPriceDTO {
+  companyName: string | undefined
+  km: number | undefined
+  min: number | undefined
+  persons: number | undefined
+  price: number | undefined
+  
+}
 /*
 export interface TaxiPrices {
   FalseTaxi: number
