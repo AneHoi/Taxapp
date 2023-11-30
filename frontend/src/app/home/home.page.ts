@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {State} from 'src/state';
 import {firstValueFrom} from 'rxjs';
@@ -6,6 +6,7 @@ import {TaxiFare, ResponseDto, TaxiPricesDto, ConfirmPriceDTO} from 'src/models'
 import {environment} from 'src/environments/environment';
 import {ModalController} from "@ionic/angular";
 import {ConfirmPriceComponent} from '../confirm-price/confirm-price.component';
+import {DataContainer} from './../data.service'
 
 
 @Component({
@@ -30,13 +31,13 @@ export class HomePage {
 
   }
 
+  data = inject(DataContainer)
   async clickedCard(taxiFare: TaxiFare) {
+    console.log(taxiFare)
     const confirmPriceDTO: ConfirmPriceDTO = this.convertToConfirmPriceDTO(taxiFare);
+    this.data.data = confirmPriceDTO;
     const modal = await this.modalController.create({
       component: ConfirmPriceComponent,
-      componentProps: { //Videregiver dataen fra denne modal til den nye der popper op
-        data: confirmPriceDTO,
-      },
     });
     modal.present();
   }
@@ -44,7 +45,7 @@ export class HomePage {
   convertToConfirmPriceDTO(taxiFare: TaxiFare): ConfirmPriceDTO {  //Konventere en TaxiFare til en ConfirmPriceDTO
     return {
       companyName: taxiFare.companyName,
-      km: 5, //Skal ændres til  googleAPI's distance
+      km: 5, //Skal ændres til googleAPI's distance
       min: 5, //Skal ændres til googleAPI's minutter
       persons: this.persons,
       price: taxiFare.price,

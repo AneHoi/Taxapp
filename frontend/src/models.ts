@@ -1,6 +1,6 @@
 export class TaxiFare {
   companyName?: string;
-  price?: number;
+  price!: number;
 
 }
 
@@ -26,7 +26,7 @@ export class ConfirmPriceDTO {
   min: number | undefined
   persons: number | undefined
   price: number | undefined
-  
+
 }
 /*
 export interface TaxiPrices {

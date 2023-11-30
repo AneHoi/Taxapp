@@ -5,5 +5,5 @@ import {TaxiPricesDto} from "./models";
   providedIn: 'root'
 })
 export class State {
-  TaxiPrices: TaxiPricesDto | null = null;
+    TaxiPrices: TaxiPricesDto | null = null;
 }

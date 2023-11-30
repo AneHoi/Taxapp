@@ -1,34 +1,33 @@
-﻿
-using api.Models;
-using infrastructure;
+﻿using infrastructure;
+using infrastructure.datamodels;
 
 namespace service;
 
 public class TaxaService
 {
-    
     private readonly TaxaRepository _taxaRepository;
 
     public TaxaService(TaxaRepository taxaRepository)
     {
         _taxaRepository = taxaRepository;
     }
-    public async Task<TaxiPricesDto> GetTaxaPricesAsync(int km, int min, int per)
+
+    public List<TaxiDTO> GetTaxiPrices(int km, int min, int persons)
     {
-        try
+        var taxiDTOs = new List<TaxiDTO>();
+        var taxiCompanies = _taxaRepository.GetTaxiCompanies();
+        foreach (var taxiCompaniesQuery in taxiCompanies)
         {
-            var taxiPricesDto = await _taxaRepository.GetTaxaPricesAsync(km, min, per);
-            // Optionally, you can perform additional processing or mapping here
-            return taxiPricesDto;
+            var taxiDto = new TaxiDTO
+            {
+                CompanyName = taxiCompaniesQuery.companyName,
+                CompanyLogo = taxiCompaniesQuery.companyImgUrl,
+                TaxiPrice = (taxiCompaniesQuery.startPrice + taxiCompaniesQuery.kmPrice * km +
+                             taxiCompaniesQuery.minPrice * min) * persons
+            };
+            taxiDTOs.Add(taxiDto);
         }
-        catch (Exception ex)
-        {
-            // Handle exceptions if needed
-            throw new InvalidOperationException($"Failed to get taxi prices: {ex.Message}", ex);
-        }
+
+        return taxiDTOs;
     }
-
-
 }
-
-

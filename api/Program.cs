@@ -5,6 +5,17 @@ using service;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.AddNpgsqlDataSource(Utilities.ProperlyFormattedConnectionString,
+        dataSourceBuilder => dataSourceBuilder.EnableParameterLogging());
+}
+
+if (builder.Environment.IsProduction())
+{
+    builder.Services.AddNpgsqlDataSource(Utilities.ProperlyFormattedConnectionString);
+}
+
 builder.Services.AddScoped<TaxaService>();
 builder.Services.AddScoped<TaxaRepository>();
 builder.Services.AddHttpClient();

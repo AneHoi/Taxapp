@@ -73,4 +73,6 @@ $RECYCLE.BIN/
 Thumbs.db
 UserInterfaceState.xcuserstate
 
+GenerateTaxiCompanies.sql
+
 # End of https://www.toptal.com/developers/gitignore/api/angular,dotnetcore,ionic3

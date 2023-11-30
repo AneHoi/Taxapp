@@ -1,37 +1,25 @@
-﻿using System.Net.Http.Json;
-using System.Text.Json;
-using api.Controllers;
-using api.Models;
-using Newtonsoft.Json;
-using JsonSerializer = System.Text.Json.JsonSerializer;
+﻿using Dapper;
+using infrastructure.datamodels;
+using Npgsql;
 
 namespace infrastructure;
 
 public class TaxaRepository
 {
-    private HttpClient _httpClient;
+    private NpgsqlDataSource _dataSource;
 
-    public TaxaRepository(HttpClient httpClient)
+    public TaxaRepository(NpgsqlDataSource datasource)
     {
-        _httpClient = httpClient;
+        _dataSource = datasource;
     }
 
-
-    public async Task<TaxiPricesDto> GetTaxaPricesAsync(int km, int min, int per)
+    public IEnumerable<TaxiCompaniesQuery> GetTaxiCompanies()
     {
-        var addressLookupUrl = $"http://localhost:5000/GetTaxaPrices/{km},{min},{per}";
-        var response = await _httpClient.GetAsync(addressLookupUrl);
-
-        // Check for successful response status
-      //  response.EnsureSuccessStatusCode();
-
-        // Deserialize the response content
-        var content = await response.Content.ReadAsStringAsync();
-        TaxiPricesDto result = JsonSerializer.Deserialize<TaxiPricesDto>(content);
-        return result;
+        string sql = $@"SELECT * FROM taxapp.taxicompanies;";
+        using (var conn = _dataSource.OpenConnection())
+        {
+            return conn.Query<TaxiCompaniesQuery>(sql);
+        }
     }
-
-
-
+    
 }
-

@@ -7,15 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TaxaAPIs\TaxaApis\TaxaApis.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="Microsoft.AspNetCore.Mvc.Core" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.1.24" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.0-rc.2.23480.2" />
+    <PackageReference Include="Npgsql" Version="8.0.0" />
+    <PackageReference Include="Npgsql.DependencyInjection" Version="8.0.0" />
   </ItemGroup>
 
 

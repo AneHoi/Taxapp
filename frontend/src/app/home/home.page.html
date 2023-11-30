@@ -20,7 +20,7 @@
         <ion-datetime
           presentation="date"
           [(ngModel)]="date"
-          locale="sl-SI"
+          locale="DK"
         ></ion-datetime>
       </ng-template>
     </ion-popover>
@@ -39,7 +39,7 @@
     <br>
     <ion-grid>
       <ion-col *ngFor="let taxiFare of (state.TaxiPrices?.taxiCompanies) || []">
-
+{{state.TaxiPrices | json}}
           <ion-item>
 
             <ion-card class="taxi-price" (click)="clickedCard(taxiFare)"
