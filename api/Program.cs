@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using api;
 using infrastructure;
 using service;
 
@@ -18,6 +19,8 @@ if (builder.Environment.IsProduction())
 
 builder.Services.AddScoped<TaxaService>();
 builder.Services.AddScoped<TaxaRepository>();
+builder.Services.AddSingleton<HttpClient>();
+builder.Services.AddSingleton<MailService>();
 builder.Services.AddHttpClient();
 builder.Services.AddControllers();
 builder.Services.AddControllers().AddJsonOptions(options =>

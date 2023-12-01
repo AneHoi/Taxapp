@@ -2,7 +2,7 @@ import {Component, inject} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {State} from 'src/state';
 import {firstValueFrom} from 'rxjs';
-import {TaxiFare, ResponseDto, TaxiPricesDto, ConfirmPriceDTO} from 'src/models'
+import {TaxiDTO, TaxInfo, ConfirmPriceDTO} from 'src/models'
 import {environment} from 'src/environments/environment';
 import {ModalController} from "@ionic/angular";
 import {ConfirmPriceComponent} from '../confirm-price/confirm-price.component';
@@ -26,15 +26,16 @@ export class HomePage {
   }
 
   async searchForPrices(km: number, min: number, persons: number | undefined) {
-    const result = await firstValueFrom(this.http.get<ResponseDto<TaxiPricesDto>>(environment.baseURL + "/TaxaApis/GetTaxaPrices/" + km + "," + min + "," + persons))
-    this.state.TaxiPrices = result.responseData!;
+    const result = await firstValueFrom(this.http.get<TaxiDTO>(environment.baseURL + "/TaxaApis/GetTaxaPrices/" + km + "," + min + "," + persons))
+    this.state.taxinfos = result;
 
   }
 
   data = inject(DataContainer)
-  async clickedCard(taxiFare: TaxiFare) {
-    console.log(taxiFare)
-    const confirmPriceDTO: ConfirmPriceDTO = this.convertToConfirmPriceDTO(taxiFare);
+
+  async clickedCard(taxInfo: TaxInfo) {
+    console.log(taxInfo)
+    const confirmPriceDTO: ConfirmPriceDTO = this.convertToConfirmPriceDTO(taxInfo);
     this.data.data = confirmPriceDTO;
     const modal = await this.modalController.create({
       component: ConfirmPriceComponent,
@@ -42,13 +43,13 @@ export class HomePage {
     modal.present();
   }
 
-  convertToConfirmPriceDTO(taxiFare: TaxiFare): ConfirmPriceDTO {  //Konventere en TaxiFare til en ConfirmPriceDTO
+  convertToConfirmPriceDTO(taxInfo: TaxInfo): ConfirmPriceDTO {  //Konventere en TaxiFare til en ConfirmPriceDTO
     return {
-      companyName: taxiFare.companyName,
+      companyName: taxInfo.companyName,
       km: 5, //Skal ændres til googleAPI's distance
       min: 5, //Skal ændres til googleAPI's minutter
       persons: this.persons,
-      price: taxiFare.price,
+      price: taxInfo.taxiPrice,
     };
   }
 

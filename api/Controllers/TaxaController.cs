@@ -1,3 +1,4 @@
+using api.TransferModels;
 using infrastructure.datamodels;
 using Microsoft.AspNetCore.Mvc;
 using service;
@@ -10,12 +11,14 @@ public class TaxaController : ControllerBase
 {
     private readonly ILogger<TaxaController> _logger;
     private readonly TaxaService _taxaService;
+    private readonly MailService _mailService;
 
     public TaxaController(ILogger<TaxaController> logger,
-        TaxaService taxaService)
+        TaxaService taxaService, MailService mailService)
     {
         _logger = logger;
         _taxaService = taxaService;
+        _mailService = mailService;
     }
 
     [HttpGet]
@@ -26,5 +29,16 @@ public class TaxaController : ControllerBase
 
 
         return taxiPricesDto;
+    }
+
+    [HttpPost]
+    [Route("/TaxaApis/ConfirmationEmail")]
+    public async Task<object> ConfirmationEmail(ConfirmationEmailDTO dto)
+    {
+        _mailService.SendEmail(dto);
+        return new
+        {
+            message = "Order has been placed - an Email has been sent to you!"
+        }; //This should then be shown to the client in the UI
     }
 }
