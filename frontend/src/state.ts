@@ -1,9 +1,9 @@
 import {Injectable} from "@angular/core";
-import {TaxiPricesDto} from "./models";
+import {TaxiDTO, TaxInfo} from "./models";
 
 @Injectable({
   providedIn: 'root'
 })
 export class State {
-    TaxiPrices: TaxiPricesDto | null = null;
+    taxinfos: TaxInfo[] = [];
 }
