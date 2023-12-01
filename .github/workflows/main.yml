@@ -24,7 +24,7 @@ jobs:
         run: cd api/ && dotnet run & echo "API_PID=$!" >> $GITHUB_ENV
 
       - name: run all tests (But first sleep for 30 seconds)
-        run: cd test && sleep 30 && dotnet build && dotnet test
+        run: cd test && sleep 90 && dotnet build && dotnet test
 
       - name: Shutdown the api
         run: kill $API_PID
