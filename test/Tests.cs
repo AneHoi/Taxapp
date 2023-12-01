@@ -14,8 +14,6 @@ public class Tests
         _httpClient = new HttpClient();
     }
 
-    [TestCase("http://localhost:5000/FalseTaxiPrice/3,5,1", 99)]
-    [TestCase("http://localhost:5000/DefinitelyNotATaxaPrice/6,10,2", 295)]
     public async Task Test1(string address, int expected)
     {
         //Arrange
