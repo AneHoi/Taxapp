@@ -1,13 +1,42 @@
 <ion-content>
   <div class="ionContainer">
+    <ion-list *ngIf="places.length > 0">
+      <ion-item *ngfor="let place for places">
+        <ion-label>
+          {{place?.title}}
+        </ion-label>
+      </ion-item>
+    </ion-list>
     <ion-item>
-      <ion-input label="Position" label-placement="floating" fill="outline" placeholder="Position"></ion-input>
-      <ion-icon name="locate-outline"></ion-icon>
+      <ion-toolbar>
+        <ion-searchbar
+        search-icon="search-circle"
+        animated="true"
+        show-clear-button="focus"
+        clear-icon="trash-bin"
+        debounce="800"
+        placeholder="Search for start location"
+        (ionInput)="onSearchChange($event)">
+        </ion-searchbar>
+      </ion-toolbar>
+      <!--<ion-input id="Start-position" label="Position" label-placement="floating" fill="outline" placeholder="Position"></ion-input>
+      <ion-icon name="locate-outline"></ion-icon>-->
     </ion-item>
     <br>
     <ion-item>
-      <ion-input label="Destination" label-placement="floating" fill="outline" placeholder="Destination"></ion-input>
-      <ion-icon name="locate-outline"></ion-icon>
+      <ion-toolbar>
+        <ion-searchbar
+          search-icon="search-circle"
+          animated="true"
+          show-clear-button="focus"
+          clear-icon="trash-bin"
+          debounce="800"
+          placeholder="Search for destination"
+        (ionInput)="onSearchChange($event)">
+        </ion-searchbar>
+      </ion-toolbar>
+      <!--<ion-input id="End-position" label="Destination" label-placement="floating" fill="outline" placeholder="Destination"></ion-input>
+      <ion-icon name="locate-outline"></ion-icon>-->
     </ion-item>
     <br>
     <ion-item>
@@ -63,10 +92,5 @@
       </ion-col>
     </ion-grid>
   </div>
-
-  <div>
-    <br>
-    <br>
-    <p>Insert Google API here</p>
-  </div>
+    <app-maps></app-maps>
 </ion-content>
