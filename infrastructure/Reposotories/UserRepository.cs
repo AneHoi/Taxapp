@@ -17,7 +17,7 @@ public class UserRepository
         _dataSource = dataSource;
     }
 
-    public User Create(string fullName, int? tlfnumber, string email)
+    public User Create(string fullName, int tlfnumber, string email)
     {
         const string sql = $@"
 INSERT INTO Taxapp.users (full_name, tlfnumber, email)
@@ -25,7 +25,7 @@ VALUES (@fullName, @tlfnumber, @email)
 RETURNING
     id as {nameof(User.Id)},
     full_name as {nameof(User.FullName)},
-    tlfnumber as {nameof(User.Tlfnumber)}
+    tlfnumber as {nameof(User.Tlfnumber)},
     email as {nameof(User.Email)};
 ";
         using var connection = _dataSource.OpenConnection();
