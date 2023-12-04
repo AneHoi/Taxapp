@@ -1,7 +1,8 @@
 using System.Text.Json.Serialization;
 using api;
-using infrastructure;
 using service;
+using infrastructure;
+using infrastructure.Reposotories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,13 +17,18 @@ if (builder.Environment.IsProduction())
 {
     builder.Services.AddNpgsqlDataSource(Utilities.ProperlyFormattedConnectionString);
 }
-
 builder.Services.AddScoped<TaxaService>();
 builder.Services.AddScoped<TaxaRepository>();
 builder.Services.AddSingleton<HttpClient>();
 builder.Services.AddSingleton<MailService>();
 builder.Services.AddHttpClient();
 builder.Services.AddControllers();
+
+//The project can access this from everywhere.
+builder.Services.AddScoped<AccountService>();
+builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<PasswordHashRepository>();
+
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
