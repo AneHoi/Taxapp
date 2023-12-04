@@ -49,7 +49,7 @@
         <ion-datetime
           presentation="date"
           [(ngModel)]="date"
-          locale="sl-SI"
+          locale="DK"
         ></ion-datetime>
       </ng-template>
     </ion-popover>
@@ -66,31 +66,27 @@
   </div>
   <div>
     <br>
-    <ion-grid>
-      <ion-col *ngFor="let taxiFare of (state.TaxiPrices?.taxiCompanies) || []">
 
-          <ion-item>
 
-            <ion-card class="taxi-price" (click)="clickedCard(taxiFare)"
-                      [attr.data-testid]="'card_'+taxiFare.companyName"
-                      >
-              <div>
-                <ion-card-title style="display: flex; align-items: center;justify-content: center;">
-                  {{taxiFare.companyName}}
-                  </ion-card-title>
-                <ion-card-content style="display: flex; align-items: center;justify-content: center;">
-                <img style="max-height: 50px;" [src]="'./assets/' + taxiFare.companyName + '.png'" alt="logo of {{taxiFare.companyName}}" fill="">
-                </ion-card-content>
-                <ion-card-subtitle style="display: flex; align-items: center;justify-content: center; font-size: x-large">
-                {{((state.TaxiPrices?.taxiPrices ?? {})[taxiFare.companyName] ?? "Unknown" )+ " DKK"}}
-                </ion-card-subtitle>
-              </div>
+    <ion-card *ngFor="let taxInfo of state.taxinfos"
+              class="taxi-price" (click)="clickedCard(taxInfo)"
+              [attr.data-testid]="'card_'+taxInfo.companyName"
+              style="max-width: 200px"
+    >
+      <div>
+        <ion-card-title style="display: flex; align-items: center;justify-content: center;">
+          {{taxInfo.companyName}}
+        </ion-card-title>
+        <ion-card-content style="display: flex; align-items: center;justify-content: center;">
+          <img style="max-height: 50px;" [src]="'./assets/' + taxInfo.companyName + '.png'"
+               alt="logo of {{taxInfo.companyName}}" fill="">
+        </ion-card-content>
+        <ion-card-subtitle style="display: flex; align-items: center;justify-content: center; font-size: x-large">
+          {{taxInfo.taxiPrice + " DKK"}}
+        </ion-card-subtitle>
+      </div>
 
-            </ion-card>
-          </ion-item>
-
-      </ion-col>
-    </ion-grid>
+    </ion-card>
   </div>
     <app-maps></app-maps>
 </ion-content>

@@ -1,11 +1,14 @@
-import {Component, NgZone, OnDestroy, OnInit} from '@angular/core';
+import {Component,inject, NgZone, OnDestroy, OnInit} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {IonicModule} from "@ionic/angular";
 import {State} from 'src/state';
 import {async, firstValueFrom, min} from 'rxjs';
-import {TaxiFare, ResponseDto, TaxiPricesDto} from 'src/models'
-import {environment} from 'src/environments/environment';
 import {CommonModule} from "@angular/common";
+import {TaxiDTO, TaxInfo, ConfirmPriceDTO} from 'src/models'
+import {environment} from 'src/environments/environment';
+import {ModalController} from "@ionic/angular";
+import {ConfirmPriceComponent} from '../confirm-price/confirm-price.component';
+import {DataContainer} from './../data.service';
 
 declare var google: { maps: { places: { Autocomplete: new () => any; }; Geocoder: new () => any; }; };
 @Component({
@@ -14,14 +17,14 @@ declare var google: { maps: { places: { Autocomplete: new () => any; }; Geocoder
     styleUrls: ['home.page.scss'],
     imports: [IonicModule, CommonModule]
 })
-export class HomePage implements OnInit, OnDestroy{
+export class HomePage {
     date: string | undefined;
     datetimeValue: string | undefined;
     persons: number | undefined;
     places: any[] = [];
     query!: string;
 
-    constructor(public state: State, public http: HttpClient, private zone: NgZone) {
+    constructor(public state: State, public http: HttpClient, private zone: NgZone, public modalController: ModalController) {
     }
 
   ngOnInit(): void {
@@ -29,15 +32,34 @@ export class HomePage implements OnInit, OnDestroy{
     }
 
 
-    async searchForPrices(km: number, min: number, persons: number | undefined) {
-        const result = await firstValueFrom(this.http.get<ResponseDto<TaxiPricesDto>>(environment.baseURL + "/TaxaApis/GetTaxaPrices/" + km + "," + min + "," + persons))
-        this.state.TaxiPrices = result.responseData!;
 
-    }
+  async searchForPrices(km: number, min: number, persons: number | undefined) {
+    const result = await firstValueFrom(this.http.get<TaxiDTO>(environment.baseURL + "/TaxaApis/GetTaxaPrices/" + km + "," + min + "," + persons))
+    this.state.taxinfos = result;
 
-    clickedCard(taxiPrice: any) {
+  }
 
-    }
+  data = inject(DataContainer)
+
+  async clickedCard(taxInfo: TaxInfo) {
+    console.log(taxInfo)
+    const confirmPriceDTO: ConfirmPriceDTO = this.convertToConfirmPriceDTO(taxInfo);
+    this.data.data = confirmPriceDTO;
+    const modal = await this.modalController.create({
+      component: ConfirmPriceComponent,
+    });
+    modal.present();
+  }
+
+  convertToConfirmPriceDTO(taxInfo: TaxInfo): ConfirmPriceDTO {  //Konventere en TaxiFare til en ConfirmPriceDTO
+    return {
+      companyName: taxInfo.companyName,
+      km: 5, //Skal ændres til googleAPI's distance
+      min: 5, //Skal ændres til googleAPI's minutter
+      persons: this.persons,
+      price: taxInfo.taxiPrice,
+    };
+  }
 
   async onSearchChange(event: any) {
     console.log(event);
@@ -91,6 +113,5 @@ export class HomePage implements OnInit, OnDestroy{
         });
       });
     }
-  ngOnDestroy(): void {
-  }
 }
+
