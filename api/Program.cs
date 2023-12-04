@@ -1,12 +1,26 @@
 using System.Text.Json.Serialization;
+using api;
 using infrastructure;
 using service;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.AddNpgsqlDataSource(Utilities.ProperlyFormattedConnectionString,
+        dataSourceBuilder => dataSourceBuilder.EnableParameterLogging());
+}
+
+if (builder.Environment.IsProduction())
+{
+    builder.Services.AddNpgsqlDataSource(Utilities.ProperlyFormattedConnectionString);
+}
+
 builder.Services.AddScoped<TaxaService>();
 builder.Services.AddScoped<TaxaRepository>();
+builder.Services.AddSingleton<HttpClient>();
+builder.Services.AddSingleton<MailService>();
 builder.Services.AddHttpClient();
 builder.Services.AddControllers();
 builder.Services.AddControllers().AddJsonOptions(options =>
