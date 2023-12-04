@@ -1,6 +1,8 @@
+using System.Text.Json.Serialization;
+using api;
+using service;
 using infrastructure;
 using infrastructure.Reposotories;
-using service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,13 +17,23 @@ if (builder.Environment.IsProduction())
 {
     builder.Services.AddNpgsqlDataSource(Utilities.ProperlyFormattedConnectionString);
 }
-
+builder.Services.AddScoped<TaxaService>();
+builder.Services.AddScoped<TaxaRepository>();
+builder.Services.AddSingleton<HttpClient>();
+builder.Services.AddSingleton<MailService>();
+builder.Services.AddHttpClient();
 builder.Services.AddControllers();
 
 //The project can access this from everywhere.
 builder.Services.AddScoped<AccountService>();
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<PasswordHashRepository>();
+
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -34,6 +46,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors(options =>
+{
+    options.SetIsOriginAllowed(origin => true)
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials();
+});
 
 app.UseHttpsRedirection();
 
