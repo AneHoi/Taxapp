@@ -12,5 +12,16 @@ export interface ConfirmPriceDTO {
   min: number
   persons: number | undefined,
   price: number
+}
 
+export class ResponseDto<T> {
+  responseData?: T;
+  messageToClient?: string;
+}
+
+export class User {
+  userName?: string;
+  tlfNumber?: number;
+  email?: string;
+  password?: string;
 }

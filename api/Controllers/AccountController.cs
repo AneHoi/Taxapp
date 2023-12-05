@@ -17,7 +17,7 @@ public class AccountController: ControllerBase
     }
 
     [HttpPost]
-    [Route("/api/account/login")]
+    [Route("/account/login")]
     public ResponseDto Login([FromBody] LoginDto dto)
     {
         var user = _service.Authenticate(dto.Email, dto.Password);
@@ -30,7 +30,7 @@ public class AccountController: ControllerBase
     }
 
     [HttpPost]
-    [Route("/api/account/register")]
+    [Route("/account/register")]
     public ResponseDto Register([FromBody] RegisterDto dto)
     {
         var user = _service.Register(dto.FullName, dto.Tlfnumber, dto.Email, dto.Password);
@@ -42,7 +42,7 @@ public class AccountController: ControllerBase
     }
 
     [HttpGet]
-    [Route("/api/account/whoami")]
+    [Route("/account/whoami")]
     public ResponseDto WhoAmI()
     {
         throw new NotImplementedException();
