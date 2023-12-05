@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
-import {Apikey} from "./apikey";
 import {firstValueFrom} from "rxjs";
 import {HttpClient} from "@angular/common/http";
+import { GOOGLEAPIKEY } from "./ApiKey";
 @Component({
   template: `<google-map *ngIf="apiLoaded"
                   height="400px"
@@ -17,7 +17,7 @@ export class MapsComponent {
   apiLoaded = false;
   constructor(private httpClient: HttpClient) { this.loadMap() }
   async loadMap() {
-    await firstValueFrom(this.httpClient.jsonp('https://maps.googleapis.com/maps/api/js?key=' + Apikey, 'callback'));
+    await firstValueFrom(this.httpClient.jsonp('https://maps.googleapis.com/maps/api/js?key=' + GOOGLEAPIKEY, 'callback'));
     this.apiLoaded = true;
   }
   center: google.maps.LatLngLiteral = {lat: 55.48773485445012, lng: 8.446890874949103}; //her er easv fx

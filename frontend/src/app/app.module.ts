@@ -12,21 +12,17 @@ import {NgModule} from "@angular/core";
 import {RouterModule, Routes} from "@angular/router";
 import {BrowserModule} from "@angular/platform-browser";
 import {IonicModule} from "@ionic/angular";
+import { RegisterComponent } from "./register/register.component";
 
 const routes: Routes = [
 
-  {
-    component: HomePage,
-    path: 'home'
-  },
-  {
-    component: LoginPage,
-    path: 'login'
-  }
+  { component: HomePage,            path: 'home'      },
+  { component: LoginPage,           path: 'login'     },
+  { component: RegisterComponent,   path: 'register'  }
 ];
 
 @NgModule({
-  declarations: [AppComponent, MapsComponent, HomePage, LoginPage, ConfirmPriceComponent],
+  declarations: [AppComponent, MapsComponent, HomePage, LoginPage, ConfirmPriceComponent, RegisterComponent],
   imports: [RouterModule.forRoot(routes), GoogleMapsModule, CommonModule, RouterModule, BrowserModule, IonicModule.forRoot({mode: 'ios'}), HttpClientModule, FormsModule],
   providers: [provideHttpClient(withJsonpSupport())],
   bootstrap: [AppComponent],

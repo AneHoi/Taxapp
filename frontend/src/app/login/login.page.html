@@ -6,7 +6,8 @@
       <br />
       <ion-input label="Password" label-placement="floating" type="password" placeholder="Password"></ion-input>
       <br />
-      <ion-button routerLink="home" >Login</ion-button>
+      <ion-button [routerLink]="['/home']" >Login</ion-button>
+      <p>Have not got an account yet? <a routerLink="/register">Create an account here</a></p>
     </div>
   </section>
 </ion-content>

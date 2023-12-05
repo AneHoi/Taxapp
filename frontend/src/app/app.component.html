@@ -1,24 +1,22 @@
 <ion-app>
 
-    <ion-header [translucent]="true">
-        <ion-toolbar>
-            <div class="centerElements">
-                <img routerLink="home" width="70" src="assets/taxapplogo.png" alt="taxapp-logo">
-                <ion-title routerLink="home">
-                    Taxapp
-                </ion-title>
-            </div>
-            <ion-button slot="end" routerLink="login">Login</ion-button>
-        </ion-toolbar>
-    </ion-header>
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-buttons slot="secondary">
+        <img routerLink="home" width="70" src="assets/taxapplogo.png" alt="taxapp-logo">
+        <p class="TaxappText" routerLink="home">Taxappp</p>
+      </ion-buttons>
+      <div class="centerElements">
+      </div>
+      <ion-button slot="end" routerLink="login">Login</ion-button>
+    </ion-toolbar>
+  </ion-header>
 
-    <div class="container">
-        <router-outlet></router-outlet>
-    </div>
-    <ion-footer>
-        <p>Taxapp</p>
-        <p>mail@mail.dk</p>
-    </ion-footer>
-
-  <app-maps></app-maps>
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+  <ion-footer>
+    <p>Taxapp</p>
+    <p>mail@mail.dk</p>
+  </ion-footer>
 </ion-app>
