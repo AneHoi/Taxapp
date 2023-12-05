@@ -6,9 +6,6 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
-    <ItemGroup>
-        <Reference Include="Microsoft.AspNetCore.Mvc.Core"/>
-    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Dapper" Version="2.1.24"/>
