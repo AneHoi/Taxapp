@@ -25,9 +25,13 @@ jobs:
           
       - name: turn on API
         run: cd api && dotnet build && dotnet run & sleep 50 && echo "API_PID=$!" >> $GITHUB_ENV
+        env:
+          pgconn: ${{secrets.PGCONN}}
 
       - name: run all tests (But first sleep for 60 seconds)
         run: cd test && sleep 30 && dotnet build && dotnet test
+        env:
+          pgconn: ${{secrets.PGCONN}}
 
       - name: Shutdown the api
         run: kill $API_PID
