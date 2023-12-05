@@ -5,5 +5,5 @@ import {TaxiDTO, TaxInfo} from "./models";
   providedIn: 'root'
 })
 export class State {
-    taxinfos: TaxInfo[] = [];
+  taxinfos: TaxInfo[] = [];
 }

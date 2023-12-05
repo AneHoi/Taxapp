@@ -1,7 +1,7 @@
 <ion-content>
   <div class="ionContainer">
     <ion-list *ngIf="places.length > 0">
-      <ion-item *ngfor="let place for places">
+      <ion-item *ngfor="let place for places" class="ion-margin-top">
         <ion-label>
           {{place?.title}}
         </ion-label>
@@ -23,6 +23,13 @@
       <ion-icon name="locate-outline"></ion-icon>-->
     </ion-item>
     <br>
+    <ion-list *ngIf="places.length > 0">
+      <ion-item *ngfor="let place for places" class="ion-margin-top">
+        <ion-label>
+          {{place?.title}}
+        </ion-label>
+      </ion-item>
+    </ion-list>
     <ion-item>
       <ion-toolbar>
         <ion-searchbar
@@ -31,11 +38,11 @@
           show-clear-button="focus"
           clear-icon="trash-bin"
           debounce="800"
-          placeholder="Search for destination"
-        (ionInput)="onSearchChange($event)">
+          placeholder="Search for start location"
+          (ionInput)="onSearchChange($event)">
         </ion-searchbar>
       </ion-toolbar>
-      <!--<ion-input id="End-position" label="Destination" label-placement="floating" fill="outline" placeholder="Destination"></ion-input>
+      <!--<ion-input id="End-position" label="Destination" label-placement="floating" fill="outline" placeholder="End destination"></ion-input>
       <ion-icon name="locate-outline"></ion-icon>-->
     </ion-item>
     <br>

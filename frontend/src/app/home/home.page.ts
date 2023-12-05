@@ -2,33 +2,45 @@ import {Component,inject, NgZone, OnDestroy, OnInit} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {IonicModule} from "@ionic/angular";
 import {State} from 'src/state';
-import {async, firstValueFrom, min} from 'rxjs';
+import {async, BehaviorSubject, firstValueFrom, min, Subscription} from 'rxjs';
 import {CommonModule} from "@angular/common";
 import {TaxiDTO, TaxInfo, ConfirmPriceDTO} from 'src/models'
 import {environment} from 'src/environments/environment';
 import {ModalController} from "@ionic/angular";
 import {ConfirmPriceComponent} from '../confirm-price/confirm-price.component';
 import {DataContainer} from './../data.service';
+import {GOOGLEAPIKEY} from '../maps/apikey'
 
 declare var google: { maps: { places: { Autocomplete: new () => any; }; Geocoder: new () => any; }; };
 @Component({
     selector: 'app-home',
     templateUrl: './home.page.html',
     styleUrls: ['home.page.scss'],
-    imports: [IonicModule, CommonModule]
 })
-export class HomePage {
+export class HomePage implements OnInit, OnDestroy{
     date: string | undefined;
     datetimeValue: string | undefined;
     persons: number | undefined;
     places: any[] = [];
     query!: string;
+    placeSubscription: Subscription | undefined;
+    private _places = new BehaviorSubject<any[]>([]);
 
+    get search_places(){
+      return this._places.asObservable();
+    }
     constructor(public state: State, public http: HttpClient, private zone: NgZone, public modalController: ModalController) {
     }
 
   ngOnInit(): void {
-        throw new Error('Method not implemented.');
+        this.placeSubscription = this.search_places.subscribe({
+          next: (places) => {
+            this.places = places
+          },
+          error: (e) => {
+            console.log(e);
+          }
+        });
     }
 
 
@@ -113,5 +125,9 @@ export class HomePage {
         });
       });
     }
+
+  ngOnDestroy(): void {
+      if(this.placeSubscription) this.placeSubscription.unsubscribe();
+  }
 }
 
