@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
+import {GOOGLEAPIKEY} from "./apikey";
 import {firstValueFrom} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-import { GOOGLEAPIKEY } from "./ApiKey";
 @Component({
   template: `<google-map *ngIf="apiLoaded"
                   height="400px"
