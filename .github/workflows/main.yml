@@ -20,11 +20,11 @@ jobs:
         with:
           dotnet-version: '8'
           
-     # - name: turn on API
-      #  run: cd api/ && dotnet run & echo "API_PID=$!" >> $GITHUB_ENV
+      - name: turn on API
+        run: cd api/ && dotnet run & echo "API_PID=$!" >> $GITHUB_ENV
 
-      - name: run all tests (But first sleep for 30 seconds)
-        run: cd test && sleep 90 && dotnet build && dotnet test
+      - name: run all tests (But first sleep for 60 seconds)
+        run: cd test && sleep 60 && dotnet build && dotnet test
 
-      #- name: Shutdown the api
-       # run: kill $API_PID
+      - name: Shutdown the api
+        run: kill $API_PID
