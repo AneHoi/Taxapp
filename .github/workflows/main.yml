@@ -27,14 +27,12 @@ jobs:
         run: cd frontend && npm i -g @angular/cli && npm i
         env:
           pgconn: ${{secrets.PGCONN}}
-
-      - name: Wait 50 secs for previous job to finish
-        run: sleep 50
           
       - name: Initiate Front end
         run: cd frontend && ng serve && echo "NG_PID=$!" >> $GITHUB_ENV
         env:
           pgconn: ${{secrets.PGCONN}}
+          GOOGLEAPIKEY: ${{secrets.GOOGLEAPIKEY}}
 
       - name: turn on API
         run: cd api && dotnet build && dotnet run & sleep 50 && echo "API_PID=$!" >> $GITHUB_ENV
