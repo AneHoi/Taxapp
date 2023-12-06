@@ -27,6 +27,9 @@ jobs:
         run: cd api && dotnet build && dotnet run & sleep 50 && echo "API_PID=$!" >> $GITHUB_ENV
         env:
           pgconn: ${{secrets.PGCONN}}
+      
+      - name: Initiate Frontend
+        run: cd frontend && ng serve && echo "FRONTEND_PID=$!" >> $GITHUB_ENV
 
       - name: run all tests (But first sleep for 60 seconds)
         run: cd test && sleep 30 && dotnet build && bin/Debug/net8.0/playwright.ps1 install && dotnet test
@@ -35,5 +38,5 @@ jobs:
           frompass: ${{secrets.FROMPASS}}
           fromemail: ${{secrets.FROMEMAIL}}
 
-      - name: Shutdown the api
-        run: kill $API_PID
+      - name: Shutdown the api && frontend
+        run: kill $API_PID && kill $FRONTEND_PID
