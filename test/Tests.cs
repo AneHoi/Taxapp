@@ -33,7 +33,8 @@ public class Tests
         Assert.AreEqual(expected, falseTaxi.TaxiPrice, "Incorrect taxi price for FalseTaxi");
     }
 
-    public class PlayWrightTest : PageTest
+    /* Virker ikke pga. en global variable med GOOGLEAPIKEY
+     public class PlayWrightTest : PageTest
     {
         [Test]
         public async Task MyTest()
@@ -54,5 +55,5 @@ public class Tests
 
 
         }
-    }
+    }*/
 }
