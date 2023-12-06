@@ -32,6 +32,8 @@ jobs:
         run: cd test && sleep 30 && dotnet build && dotnet test
         env:
           pgconn: ${{secrets.PGCONN}}
+          frompass: ${{secrets.FROMPASS}}
+          fromemail: ${{secrets.FROMEMAIL}}
 
       - name: Shutdown the api
         run: kill $API_PID
