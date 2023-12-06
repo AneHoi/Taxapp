@@ -27,7 +27,7 @@ jobs:
         run: cd frontend && npm i -g @angular/cli && npm i && ng serve & echo "NG_PID=$!" >> $GITHUB_ENV
 
       - name: Build test code and install playwright test browser
-        run: cd test && sleep 60 && dotnet build && pwsh bin/Debug/net8.0/playwright.ps1 install --with-deps
+        run: cd test && sleep 90 && dotnet build && pwsh bin/Debug/net8.0/playwright.ps1 install --with-deps
 
       - name: Build and run Web API + getting process ID for shutting down later
         run: cd api && dotnet run & echo "API_PID=$!" >> $GITHUB_ENV
@@ -35,7 +35,7 @@ jobs:
           pgconn: ${{secrets.PGCONN}}
       
       - name: run all tests (But first sleep for 60 seconds)
-        run: cd test && sleep 30 && dotnet build && bin/Debug/net8.0/playwright.ps1 install && dotnet test
+        run: cd test && sleep 60 && dotnet build && bin/Debug/net8.0/playwright.ps1 install && dotnet test
         env:
           pgconn: ${{secrets.PGCONN}}
           frompass: ${{secrets.FROMPASS}}
