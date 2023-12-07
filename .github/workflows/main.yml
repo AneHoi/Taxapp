@@ -22,16 +22,29 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '8'
+
+      #- name: Setup Front end
+      #  run: cd frontend && npm i -g @angular/cli && npm i
+      #  env:
+      #    pgconn: ${{secrets.PGCONN}}
           
+      #- name: Initiate Front end
+      #  run: cd frontend && ng serve && echo "NG_PID=$!" >> $GITHUB_ENV
+      #  env:
+      #    pgconn: ${{secrets.PGCONN}}
+      #    GOOGLEAPIKEY: ${{secrets.GOOGLEAPIKEY}}
+
       - name: turn on API
-        run: cd api && dotnet build && dotnet run & sleep 50 && echo "API_PID=$!" >> $GITHUB_ENV
+        run: cd api && dotnet build && dotnet run & sleep 20 && echo "API_PID=$!" >> $GITHUB_ENV
         env:
           pgconn: ${{secrets.PGCONN}}
 
-      - name: run all tests (But first sleep for 60 seconds)
-        run: cd test && sleep 30 && dotnet build && dotnet test
+      - name: run all tests (But first sleep for 30 seconds)
+        run: cd test && sleep 30 && dotnet build && pwsh bin/Debug/net8.0/playwright.ps1 install && dotnet test
         env:
           pgconn: ${{secrets.PGCONN}}
+          frompass: ${{secrets.FROMPASS}}
+          fromemail: ${{secrets.FROMEMAIL}}
 
       - name: Shutdown the api
         run: kill $API_PID
