@@ -35,7 +35,8 @@ create table TaxApp.password_hash (
     FOREIGN KEY(user_id) REFERENCES TaxApp.users(id)
 );
 
---adding a testuser
+--adding a tester
+--the test password is: 12345678
 INSERT INTO TaxApp.users (username, tlfnumber, email)
 VALUES ('Tester', 12345678, 'test@mail.com');
 INSERT INTO TaxApp.password_hash (user_id, hash, salt, algorithm)

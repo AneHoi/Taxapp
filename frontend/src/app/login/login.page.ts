@@ -2,10 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {State} from 'src/state';
 import {firstValueFrom} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-import { ResponseDto, User } from 'src/models';
+import {ResponseDto, User} from 'src/models';
 import {FormBuilder, Validators} from "@angular/forms";
-import { environment } from 'src/environments/environment';
+import {environment} from 'src/environments/environment';
 import {ToastController} from "@ionic/angular";
+import { UserHandler } from '../userHandler';
 
 @Component({
     selector: 'app-login',
@@ -20,14 +21,13 @@ export class LoginPage implements OnInit {
         password: ['', Validators.minLength(8)],
     })
 
-    constructor(public state: State, public http: HttpClient, public fb: FormBuilder, public toastcontroller: ToastController) {
+    constructor(public state: State, private userHandler: UserHandler, public http: HttpClient, public fb: FormBuilder, public toastcontroller: ToastController) {
     }
 
     ngOnInit() {
     }
 
     async login() {
-
         try {
             const observable = this.http.post<ResponseDto<User>>(environment.baseURL + '/account/login', this.loginForm.getRawValue())
 
@@ -37,6 +37,7 @@ export class LoginPage implements OnInit {
             //Securing that the logged in user accually has the information, and not just an empty object
             if (this.currentUser !== undefined) {
                 this.state.setCurrentUser(this.currentUser);
+                this.changeNameOfCurrentUser(this.state.getCurrentUser().username);
             }
             const toast = await this.toastcontroller.create({
                 message: 'Login was sucessfull',
@@ -47,13 +48,10 @@ export class LoginPage implements OnInit {
         } catch (e) {
         }
 
-
-        var user = this.state.getCurrentUser();
-        if (user !== undefined) {
-            console.log("Current user " + user.username)
-            console.log("Current user " + this.state.getCurrentUser().username)
-        }
-        console.log("That was the current user :-)")
     }
+    changeNameOfCurrentUser(name: any): void {
+        this.userHandler.updateCurrentUser(name);
+    }
+
 
 }
