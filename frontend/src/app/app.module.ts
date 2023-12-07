@@ -13,16 +13,16 @@ import {RouterModule, Routes} from "@angular/router";
 import {BrowserModule} from "@angular/platform-browser";
 import {IonicModule} from "@ionic/angular";
 import { RegisterComponent } from "./register/register.component";
+import { HeaderComponent } from "./header/header.component";
 
 const routes: Routes = [
-
   { component: HomePage,            path: 'home'      },
   { component: LoginPage,           path: 'login'     },
   { component: RegisterComponent,   path: 'register'  }
 ];
 
 @NgModule({
-  declarations: [AppComponent, MapsComponent, HomePage, LoginPage, ConfirmPriceComponent, RegisterComponent],
+  declarations: [AppComponent, MapsComponent, HomePage, LoginPage, HeaderComponent, ConfirmPriceComponent, RegisterComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [RouterModule.forRoot(routes), GoogleMapsModule, CommonModule, RouterModule, BrowserModule, IonicModule.forRoot({mode: 'ios'}), HttpClientModule, FormsModule, ReactiveFormsModule],
   providers: [provideHttpClient(withJsonpSupport())],

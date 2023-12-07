@@ -1,15 +1,8 @@
 <ion-app>
 
   <ion-header [translucent]="true">
-    <ion-toolbar>
-      <ion-buttons slot="secondary">
-        <img routerLink="home" width="70" src="assets/taxapplogo.png" alt="taxapp-logo">
-        <p class="TaxappText" routerLink="home">Taxappp</p>
-      </ion-buttons>
-      <div class="centerElements">
-      </div>
-      <ion-button slot="end" routerLink="login">Login</ion-button>
-    </ion-toolbar>
+    <!-- referring to the toolbar header as long as it is declared in app.module.ts, it refers correctly-->
+    <app-header></app-header>
   </ion-header>
     <div class="container">
         <router-outlet></router-outlet>
