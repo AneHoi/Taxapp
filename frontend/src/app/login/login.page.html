@@ -2,11 +2,11 @@
 <ion-content>
   <section class="parentdiv">
     <div class="childdiv">
-      <ion-input label="Username" label-placement="floating" placeholder="Username"></ion-input>
+      <ion-input label="Email" [formControl]="loginForm.controls.email" label-placement="floating" placeholder="Email"></ion-input>
       <br />
-      <ion-input label="Password" label-placement="floating" type="password" placeholder="Password"></ion-input>
+      <ion-input label="Password" [formControl]="loginForm.controls.password" label-placement="floating" type="password" placeholder="Password"></ion-input>
       <br />
-      <ion-button (click)="showUser()">Login</ion-button>
+      <ion-button (click)="login()">Login</ion-button>
       <!--ion-button [routerLink]="['/home']" >Login</ion-button-->
       <p>Have not got an account yet? <a routerLink="/register">Create an account here</a></p>
     </div>

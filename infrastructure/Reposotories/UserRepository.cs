@@ -41,7 +41,7 @@ RETURNING
 SELECT
     id as {nameof(User.id)},
     username as {nameof(User.username)},
-    tlfnumber as {nameof(User.tlfnumber)}
+    tlfnumber as {nameof(User.tlfnumber)},
     email as {nameof(User.email)}
 FROM taxapp.users
 WHERE id = @id;

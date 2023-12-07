@@ -37,19 +37,11 @@ export class RegisterComponent implements OnInit {
             const observable = this.http.post<ResponseDto<User>>(environment.baseURL + '/account/register', this.createNewUserForm.getRawValue())
 
             const response = await firstValueFrom(observable);
+            //Setting the current user.
             this.currentUser = response.responseData;
+            //Securing that the logged in user accually has the information, and not just an empty object
             if (this.currentUser !== undefined) {
                 this.state.setCurrentUser(this.currentUser);
-            }
-            if (response.responseData !== undefined) {
-                console.log("Username: " + response.responseData.username)
-                console.log("Useremail: " + response.responseData.email)
-
-            } else {
-                console.log("Username: is maybe available here")
-                // @ts-ignore
-                console.log("Useremail: " + response.responseData.email)
-
             }
             const toast = await this.toastcontroller.create({
                 message: 'The registration was sucessfull',
