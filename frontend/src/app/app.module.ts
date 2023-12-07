@@ -5,10 +5,10 @@ import {ConfirmPriceComponent} from './confirm-price/confirm-price.component'
 import {MapsComponent} from "./maps/maps.component";
 import {HomePage} from "./home/home.page";
 import {LoginPage} from "./login/login.page";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {GoogleMapsModule} from "@angular/google-maps";
 import {CommonModule} from "@angular/common";
-import {NgModule} from "@angular/core";
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from "@angular/core";
 import {RouterModule, Routes} from "@angular/router";
 import {BrowserModule} from "@angular/platform-browser";
 import {IonicModule} from "@ionic/angular";
@@ -23,7 +23,8 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [AppComponent, MapsComponent, HomePage, LoginPage, ConfirmPriceComponent, RegisterComponent],
-  imports: [RouterModule.forRoot(routes), GoogleMapsModule, CommonModule, RouterModule, BrowserModule, IonicModule.forRoot({mode: 'ios'}), HttpClientModule, FormsModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  imports: [RouterModule.forRoot(routes), GoogleMapsModule, CommonModule, RouterModule, BrowserModule, IonicModule.forRoot({mode: 'ios'}), HttpClientModule, FormsModule, ReactiveFormsModule],
   providers: [provideHttpClient(withJsonpSupport())],
   bootstrap: [AppComponent],
 })

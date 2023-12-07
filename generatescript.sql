@@ -22,7 +22,7 @@ INSERT INTO TaxApp.TaxiCompanies (companyName, startPrice, kmPrice, minPrice) VA
 
 create table TaxApp.users (
     id          SERIAL          PRIMARY KEY,
-    full_name   VARCHAR(50)     NOT NULL,
+    username    VARCHAR(50)     NOT NULL,
     tlfnumber   INT,
     email       VARCHAR(50)     NOT NULL UNIQUE
 );

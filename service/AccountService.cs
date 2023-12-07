@@ -49,13 +49,13 @@ public class AccountService
      * A request is sent, and the information is stored
      * It creates the hashAlgorithm, salt and thereby the hashed password
      */
-    public User Register(string fullName, int tlfnumber, string email, string password)
+    public User Register(string username, int tlfnumber, string email, string password)
     {
         var hashAlgorithm = PasswordHashAlgorithm.Create();
         var salt = hashAlgorithm.GenerateSalt();
         var hash = hashAlgorithm.HashPassword(password, salt);
-        var user = _userRepository.Create(fullName, tlfnumber, email);
-        _passwordHashRepository.Create(user.Id, hash, salt, hashAlgorithm.GetName());
+        var user = _userRepository.Create(username, tlfnumber, email);
+        _passwordHashRepository.Create(user.id, hash, salt, hashAlgorithm.GetName());
         return user;
     }
 }

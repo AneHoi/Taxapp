@@ -7,6 +7,14 @@ import {TaxiDTO, TaxInfo, User} from "./models";
 
 export class State {
   taxinfos: TaxInfo[] = [];
-  currentuser: User | undefined;
-    
+  // this "{}" means: Empty object
+  currentuser: User = {};
+
+  getCurrentUser(): User {
+    return this.currentuser;
+  }
+  setCurrentUser(user: User):void {
+    this.currentuser = user;
+  }
+
 }

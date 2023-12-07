@@ -33,7 +33,8 @@ public class AccountController: ControllerBase
     [Route("/account/register")]
     public ResponseDto Register([FromBody] RegisterDto dto)
     {
-        var user = _service.Register(dto.FullName, dto.Tlfnumber, dto.Email, dto.Password);
+        Console.WriteLine("Hi Im: \t\t" + dto.username + "\nmy number:\t" + dto.tlfnumber.ToString() + "\nmy email:\t" + dto.email + "\nPassword:\t" + dto.password);
+        var user = _service.Register(dto.username, dto.tlfnumber, dto.email, dto.password);
         return new ResponseDto
         {
             MessageToClient = "Successfully registered",

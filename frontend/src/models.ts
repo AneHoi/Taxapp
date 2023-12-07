@@ -20,8 +20,8 @@ export class ResponseDto<T> {
 }
 
 export class User {
-  userName?: string;
-  tlfNumber?: number;
+  username?: string;
+  tlfnumber?: number;
   email?: string;
   password?: string;
 }
