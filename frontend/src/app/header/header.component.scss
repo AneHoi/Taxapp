@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
+
+.content {
+  min-height: calc(100vh - 64px);
+  display: flex;
+}
+
+.container {
+  height: calc(100vh - 100px - 100px);
+}
+
+.TaxappText{
+  font-family: 'Audiowide', sans-serif;
+  font-size: 40px;
+}
+
+.centerElements{
+  height: 75%;
+  align-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
