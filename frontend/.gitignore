@@ -10,6 +10,9 @@ UserInterfaceState.xcuserstate
 $RECYCLE.BIN/
 
 apikey.ts
+ApiKey.ts
+/frontend/src/app/maps/ApiKey.ts
+frontend/src/app/maps/ApiKey.ts
 
 *.log
 log.txt

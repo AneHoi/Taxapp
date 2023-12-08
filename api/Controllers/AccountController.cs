@@ -17,10 +17,10 @@ public class AccountController: ControllerBase
     }
 
     [HttpPost]
-    [Route("/api/account/login")]
+    [Route("/account/login")]
     public ResponseDto Login([FromBody] LoginDto dto)
     {
-        var user = _service.Authenticate(dto.Email, dto.Password);
+        var user = _service.Authenticate(dto.email, dto.password);
         return new ResponseDto
         {
             MessageToClient = "Successfully authenticated",
@@ -30,10 +30,11 @@ public class AccountController: ControllerBase
     }
 
     [HttpPost]
-    [Route("/api/account/register")]
+    [Route("/account/register")]
     public ResponseDto Register([FromBody] RegisterDto dto)
     {
-        var user = _service.Register(dto.FullName, dto.Tlfnumber, dto.Email, dto.Password);
+        Console.WriteLine("Hi Im: \t\t" + dto.username + "\nmy number:\t" + dto.tlfnumber.ToString() + "\nmy email:\t" + dto.email + "\nPassword:\t" + dto.password);
+        var user = _service.Register(dto.username, dto.tlfnumber, dto.email, dto.password);
         return new ResponseDto
         {
             MessageToClient = "Successfully registered",
@@ -42,7 +43,7 @@ public class AccountController: ControllerBase
     }
 
     [HttpGet]
-    [Route("/api/account/whoami")]
+    [Route("/account/whoami")]
     public ResponseDto WhoAmI()
     {
         throw new NotImplementedException();

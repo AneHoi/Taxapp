@@ -1,17 +1,9 @@
 <ion-app>
 
-    <ion-header [translucent]="true">
-        <ion-toolbar>
-            <div class="centerElements">
-                <img routerLink="home" width="70" src="assets/taxapplogo.png" alt="taxapp-logo">
-                <ion-title routerLink="home">
-                    Taxapp
-                </ion-title>
-            </div>
-            <ion-button slot="end" routerLink="login">Login</ion-button>
-        </ion-toolbar>
-    </ion-header>
-
+  <ion-header [translucent]="true">
+    <!-- referring to the toolbar header as long as it is declared in app.module.ts, it refers correctly-->
+    <app-header></app-header>
+  </ion-header>
     <div class="container">
         <router-outlet></router-outlet>
     </div>
@@ -19,6 +11,4 @@
         <p>Taxapp</p>
         <p>mail@mail.dk</p>
     </ion-footer>
-
-
 </ion-app>

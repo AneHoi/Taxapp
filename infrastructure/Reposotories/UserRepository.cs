@@ -17,19 +17,19 @@ public class UserRepository
         _dataSource = dataSource;
     }
 
-    public User Create(string fullName, int tlfnumber, string email)
+    public User Create(string username, int tlfnumber, string email)
     {
         const string sql = $@"
-INSERT INTO Taxapp.users (full_name, tlfnumber, email)
-VALUES (@fullName, @tlfnumber, @email)
+INSERT INTO Taxapp.users (username, tlfnumber, email)
+VALUES (@username, @tlfnumber, @email)
 RETURNING
-    id as {nameof(User.Id)},
-    full_name as {nameof(User.FullName)},
-    tlfnumber as {nameof(User.Tlfnumber)},
-    email as {nameof(User.Email)};
+    id as {nameof(User.id)},
+    username as {nameof(User.username)},
+    tlfnumber as {nameof(User.tlfnumber)},
+    email as {nameof(User.email)};
 ";
         using var connection = _dataSource.OpenConnection();
-        return connection.QueryFirst<User>(sql, new { fullName, tlfnumber, email });
+        return connection.QueryFirst<User>(sql, new { username, tlfnumber, email });
     }
 
     /**
@@ -39,10 +39,10 @@ RETURNING
     {
         const string sql = $@"
 SELECT
-    id as {nameof(User.Id)},
-    full_name as {nameof(User.FullName)},
-    tlfnumber as {nameof(User.Tlfnumber)}
-    email as {nameof(User.Email)}
+    id as {nameof(User.id)},
+    username as {nameof(User.username)},
+    tlfnumber as {nameof(User.tlfnumber)},
+    email as {nameof(User.email)}
 FROM taxapp.users
 WHERE id = @id;
 ";
@@ -54,10 +54,10 @@ WHERE id = @id;
     {
         const string sql = $@"
 SELECT
-    id as {nameof(User.Id)},
-    full_name as {nameof(User.FullName)},
-    tlfnumber as {nameof(User.Tlfnumber)}
-    email as {nameof(User.Email)}
+    id as {nameof(User.id)},
+    username as {nameof(User.username)},
+    tlfnumber as {nameof(User.tlfnumber)}
+    email as {nameof(User.email)}
 FROM taxapp.users
 ";
         using (var conn = _dataSource.OpenConnection())

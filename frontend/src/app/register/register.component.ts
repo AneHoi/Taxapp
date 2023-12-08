@@ -1,35 +1,40 @@
 import {Component, OnInit} from '@angular/core';
-import {State} from 'src/state';
-import {firstValueFrom} from "rxjs";
+import {FormBuilder, Validators} from '@angular/forms';
 import {HttpClient} from "@angular/common/http";
 import {ResponseDto, User} from 'src/models';
-import {FormBuilder, Validators} from "@angular/forms";
 import {environment} from 'src/environments/environment';
+import {firstValueFrom} from "rxjs";
 import {ToastController} from "@ionic/angular";
-import { UserHandler } from '../userHandler';
+import {State} from 'src/state';
 
 @Component({
-    selector: 'app-login',
-    templateUrl: './login.page.html',
-    styleUrls: ['./login.page.scss'],
+    selector: 'app-register',
+    templateUrl: './register.component.html',
+    styleUrls: ['./register.component.scss'],
 })
-export class LoginPage implements OnInit {
+export class RegisterComponent implements OnInit {
     currentUser: User | undefined;
     //This is the formbuilder, it is important to SPELL the items as they are spelled in the dto in the API
-    loginForm = this.fb.group({
+    createNewUserForm = this.fb.group({
+        username: ['', Validators.minLength(2)],
+        tlfnumber: ['', Validators.min(10000000)],
         email: ['', Validators.minLength(2)],
         password: ['', Validators.minLength(8)],
     })
 
-    constructor(public state: State, private userHandler: UserHandler, public http: HttpClient, public fb: FormBuilder, public toastcontroller: ToastController) {
+    constructor(public fb: FormBuilder, public http: HttpClient, public toastcontroller: ToastController, public state: State) {
     }
 
     ngOnInit() {
     }
 
-    async login() {
+    /**
+     * While registering, the "Log in" part is also implemented here, by getting the response in form of the object "User"
+     * The current user is stored inside the state-file
+     */
+    async submit() {
         try {
-            const observable = this.http.post<ResponseDto<User>>(environment.baseURL + '/account/login', this.loginForm.getRawValue())
+            const observable = this.http.post<ResponseDto<User>>(environment.baseURL + '/account/register', this.createNewUserForm.getRawValue())
 
             const response = await firstValueFrom(observable);
             //Setting the current user.
@@ -37,10 +42,9 @@ export class LoginPage implements OnInit {
             //Securing that the logged in user accually has the information, and not just an empty object
             if (this.currentUser !== undefined) {
                 this.state.setCurrentUser(this.currentUser);
-                this.changeNameOfCurrentUser(this.state.getCurrentUser().username);
             }
             const toast = await this.toastcontroller.create({
-                message: 'Login was sucessfull',
+                message: 'The registration was sucessfull',
                 duration: 1233,
                 color: "success"
             })
@@ -49,9 +53,4 @@ export class LoginPage implements OnInit {
         }
 
     }
-    changeNameOfCurrentUser(name: any): void {
-        this.userHandler.updateCurrentUser(name);
-    }
-
-
 }
