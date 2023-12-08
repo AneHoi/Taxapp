@@ -2,6 +2,8 @@ using System.Net.Http.Json;
 using FluentAssertions;
 using Newtonsoft.Json;
 using infrastructure.datamodels;
+using Microsoft.Playwright;
+using Microsoft.Playwright.NUnit;
 
 namespace testDir;
 
@@ -25,9 +27,33 @@ public class Tests
 
         //Act
         var falseTaxi = Array.Find(taxiDTOs, taxi => taxi.CompanyName == "FalseTaxi");
-        
+
         //Assert
         Assert.NotNull(falseTaxi, "FalseTaxi not found in the response");
         Assert.AreEqual(expected, falseTaxi.TaxiPrice, "Incorrect taxi price for FalseTaxi");
     }
+
+    /* Virker ikke pga. en global variable med GOOGLEAPIKEY
+     public class PlayWrightTest : PageTest
+    {
+        [Test]
+        public async Task MyTest()
+        {
+            await Page.GotoAsync("http://localhost:4200/home");
+
+            await Page.GetByText("Amount of people").ClickAsync();
+
+            await Page.GetByRole(AriaRole.Radio, new() { Name = "3" }).ClickAsync();
+
+            await Page.GetByRole(AriaRole.Button, new() { Name = "OK" }).ClickAsync();
+
+            await Page.GetByRole(AriaRole.Button, new() { Name = "Search" }).ClickAsync();
+
+            await Page.GetByRole(AriaRole.Img, new() { Name = "logo of FalseTaxi" }).ClickAsync();
+
+            await Expect(Page.GetByText("Price: 375 DKK")).ToBeVisibleAsync();
+
+
+        }
+    }*/
 }

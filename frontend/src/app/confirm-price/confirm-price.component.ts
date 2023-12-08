@@ -51,7 +51,7 @@ export class ConfirmPriceComponent implements OnInit {
     const observable = this.http.post<any>(environment.baseURL + '/TaxaApis/ConfirmationEmail', {
       distance: this.dataContainer.data.km,
       duration: this.dataContainer.data.min,
-      persons: this.dataContainer.data.perons,
+      persons: this.dataContainer.data.persons,
       price: this.dataContainer.data.price,
       company: this.dataContainer.data.companyName,
       toemail: this.emailOfUser,
