@@ -72,7 +72,16 @@ export class HomePage {
   }
 
 
-  placemarker(i: Address) {
+  placePos(pos: Address) {
+    const posLat = pos.lat;
+    const posLon = pos.lon;
+    this.state.setPosition(posLat, posLon)
+  }
+
+  placeDes(des: Address) {
+    const desLat = des.lat;
+    const desLon = des.lon;
+    this.state.setDestination(desLat, desLon)
 
   }
 }

@@ -3,7 +3,7 @@
     <ion-item>
       Position: <input list="PositionList" [formControl]="addressField" (input)="updateSuggestions()">
       <datalist id="PositionList">
-      <option *ngFor="let i of addressSuggestions" [value]="i.formatted" (click)="placemarker(i)"></option>
+      <option *ngFor="let pos of addressSuggestions" [value]="pos.formatted" (click)="placePos(pos)"></option>
       </datalist>
       <ion-icon name="locate-outline"></ion-icon>
     </ion-item>
@@ -11,7 +11,7 @@
     <ion-item>
       Destination: <input list="DestinationList" [formControl]="addressField" (input)="updateSuggestions()">
       <datalist id="DestinationList">
-        <option *ngFor="let i of addressSuggestions" [value]="i.formatted" (click)="placemarker(i)"></option>
+        <option *ngFor="let des of addressSuggestions" [value]="des.formatted" (click)="placeDes(des)"></option>
       </datalist>
       <ion-icon name="locate-outline"></ion-icon>
     </ion-item>

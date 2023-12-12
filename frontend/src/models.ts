@@ -50,3 +50,11 @@ export interface Address {
   result_type: string
   place_id: string
 }
+export class Position {
+  lng!: number
+  lat!: number
+}
+export class Destination {
+  lng!: number
+  lat!: number
+}
