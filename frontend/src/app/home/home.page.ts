@@ -71,5 +71,8 @@ export class HomePage {
 
   }
 
-  
+
+  placemarker(i: Address) {
+
+  }
 }

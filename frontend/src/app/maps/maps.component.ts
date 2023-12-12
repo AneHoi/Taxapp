@@ -26,6 +26,7 @@ export class MapsComponent {
   markerPositions: google.maps.LatLngLiteral[] = [];
 
   addMarker(event: google.maps.MapMouseEvent) {
+    this.markerPositions = [];
     this.markerPositions.push(event.latLng!.toJSON());
     console.log("hey taxapp, der er nu en marker på kortet")
   }
