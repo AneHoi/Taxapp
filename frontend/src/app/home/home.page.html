@@ -1,12 +1,18 @@
 <ion-content>
   <div class="ionContainer">
     <ion-item>
-      <ion-input label="Position" label-placement="floating" fill="outline" placeholder="Position"></ion-input>
+      Position: <input list="PositionList" [formControl]="addressField" (input)="updateSuggestions()">
+      <datalist id="PositionList">
+      <option *ngFor="let i of addressSuggestions" [value]="i.formatted" (click)="placemarker(i)"></option>
+      </datalist>
       <ion-icon name="locate-outline"></ion-icon>
     </ion-item>
     <br>
     <ion-item>
-      <ion-input label="Destination" label-placement="floating" fill="outline" placeholder="Destination"></ion-input>
+      Destination: <input list="DestinationList" [formControl]="addressField" (input)="updateSuggestions()">
+      <datalist id="DestinationList">
+        <option *ngFor="let i of addressSuggestions" [value]="i.formatted" (click)="placemarker(i)"></option>
+      </datalist>
       <ion-icon name="locate-outline"></ion-icon>
     </ion-item>
     <br>

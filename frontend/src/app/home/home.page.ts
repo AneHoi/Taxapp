@@ -2,11 +2,13 @@ import {Component, inject} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {State} from 'src/state';
 import {firstValueFrom} from 'rxjs';
-import {TaxiDTO, TaxInfo, ConfirmPriceDTO} from 'src/models'
+import {TaxiDTO, TaxInfo, ConfirmPriceDTO, Address, AddressAPIJsonResponseModel} from 'src/models'
 import {environment} from 'src/environments/environment';
 import {ModalController} from "@ionic/angular";
 import {ConfirmPriceComponent} from '../confirm-price/confirm-price.component';
 import {DataContainer} from './../data.service'
+import {FormControl} from '@angular/forms';
+import {GEOCODEAPIKEY, GOOGLEAPIKEY} from '../maps/apikey';
 
 
 @Component({
@@ -20,6 +22,8 @@ export class HomePage {
   date: string | undefined;
   datetimeValue: string | undefined;
   persons: number | undefined;
+  addressSuggestions: Address[] = [];
+  addressField = new FormControl('');
 
 
   constructor(public state: State, public http: HttpClient, public modalController: ModalController) {
@@ -53,4 +57,19 @@ export class HomePage {
     };
   }
 
+  async updateSuggestions(): Promise<void> {
+    if (this.addressField.value?.length! < 3) return;
+    const address = "https://api.geoapify.com/v1/geocode/autocomplete";
+    const params: any = {
+      text: this.addressField.value,
+      format: "json",
+      apiKey: GEOCODEAPIKEY
+    };
+    const observable = this.http.get<AddressAPIJsonResponseModel>(address, {params: params});
+    const addressResult = await firstValueFrom<AddressAPIJsonResponseModel>(observable);
+    this.addressSuggestions = addressResult.results;
+
+  }
+
+  
 }

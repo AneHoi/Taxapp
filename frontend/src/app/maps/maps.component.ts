@@ -29,4 +29,6 @@ export class MapsComponent {
     this.markerPositions.push(event.latLng!.toJSON());
     console.log("hey taxapp, der er nu en marker på kortet")
   }
+
+
 }
