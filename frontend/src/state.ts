@@ -12,10 +12,16 @@ export class State {
   currentuser: User = {};
   pos: Position = new Position;
   des: Destination = new Destination;
-  private position = new Subject<Position>();
-  private destination = new Subject<Destination>();
-  position$ = this.position.asObservable();
-  destination$ = this.destination.asObservable();
+  oldPos: Position = new Position;
+  oldDes: Destination = new Destination
+  public newPosition = new Subject<Position>();
+  public newDestination = new Subject<Destination>();
+  public oldPosition = new Subject<Position>();
+  public oldDestination = new Subject<Destination>();
+  newPosition$ = this.newPosition.asObservable();
+  newDestination$ = this.newDestination.asObservable();
+  oldPosition$ = this.oldPosition.asObservable();
+  oldDestination$ = this.oldDestination.asObservable();
 
   getCurrentUser(): User {
     return this.currentuser;
@@ -25,9 +31,12 @@ export class State {
   }
 
   setDestination(lat: number, lon: number){
+    this.oldDes.lat = this.des.lat
+    this.oldDes.lng = this.des.lng
+    this.oldDestination.next(this.oldDes);
     this.des.lat = lat;
     this.des.lng = lon;
-    this.updateDestination(this.des)
+    this.newDestination.next(this.des);
   }
 
   getDestination(): Destination {
@@ -35,21 +44,17 @@ export class State {
   }
 
   setPosition(lat: number, lon: number) {
+    this.oldPos.lat = this.pos.lat
+    this.oldPos.lng = this.pos.lng
+    this.oldPosition.next(this.oldPos);
     this.pos.lat = lat;
     this.pos.lng = lon;
-    this.updatePosition(this.pos)
+    this.newPosition.next(this.pos);
   }
 
   getPosition(): Position {
     return this.pos;
   }
 
-  updatePosition(pos: Position): void {
-    this.position.next(pos);
-  }
-
-  updateDestination(des: Destination): void {
-    this.destination.next(des);
-  }
 
 }

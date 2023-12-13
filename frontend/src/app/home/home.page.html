@@ -1,17 +1,17 @@
 <ion-content>
   <div class="ionContainer">
     <ion-item>
-      Position: <input list="PositionList" [formControl]="addressField" (input)="updateSuggestions()">
+      Position: <input list="PositionList" [formControl]="addressField" (input)="positionSuggestion()" (change)="selectPositionSuggestion()">
       <datalist id="PositionList">
-      <option *ngFor="let pos of addressSuggestions" [value]="pos.formatted" (click)="placePos(pos)"></option>
+        <option *ngFor="let pos of addressSuggestions" [value]="pos.formatted" ></option>
       </datalist>
       <ion-icon name="locate-outline"></ion-icon>
     </ion-item>
     <br>
     <ion-item>
-      Destination: <input list="DestinationList" [formControl]="addressField" (input)="updateSuggestions()">
+      Destination: <input list="DestinationList" [formControl]="addressField" (input)="destinationSuggestion()" (change)="selectDestinationSuggestion()">
       <datalist id="DestinationList">
-        <option *ngFor="let des of addressSuggestions" [value]="des.formatted" (click)="placeDes(des)"></option>
+        <option *ngFor="let des of addressSuggestions" [value]="des.formatted"></option>
       </datalist>
       <ion-icon name="locate-outline"></ion-icon>
     </ion-item>
@@ -67,7 +67,6 @@
 
     <app-maps></app-maps>
   </div>
-
 
 
 </ion-content>

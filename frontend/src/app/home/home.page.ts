@@ -2,7 +2,7 @@ import {Component, inject} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {State} from 'src/state';
 import {firstValueFrom} from 'rxjs';
-import {TaxiDTO, TaxInfo, ConfirmPriceDTO, Address, AddressAPIJsonResponseModel} from 'src/models'
+import {TaxiDTO, TaxInfo, ConfirmPriceDTO, Address, AddressAPIJsonResponseModel, Position} from 'src/models'
 import {environment} from 'src/environments/environment';
 import {ModalController} from "@ionic/angular";
 import {ConfirmPriceComponent} from '../confirm-price/confirm-price.component';
@@ -47,6 +47,7 @@ export class HomePage {
     modal.present();
   }
 
+
   convertToConfirmPriceDTO(taxInfo: TaxInfo): ConfirmPriceDTO {  //Konventere en TaxiFare til en ConfirmPriceDTO
     return {
       companyName: taxInfo.companyName,
@@ -57,7 +58,7 @@ export class HomePage {
     };
   }
 
-  async updateSuggestions(): Promise<void> {
+  async destinationSuggestion(): Promise<void> {
     if (this.addressField.value?.length! < 3) return;
     const address = "https://api.geoapify.com/v1/geocode/autocomplete";
     const params: any = {
@@ -68,9 +69,7 @@ export class HomePage {
     const observable = this.http.get<AddressAPIJsonResponseModel>(address, {params: params});
     const addressResult = await firstValueFrom<AddressAPIJsonResponseModel>(observable);
     this.addressSuggestions = addressResult.results;
-
   }
-
 
   placePos(pos: Address) {
     const posLat = pos.lat;
@@ -82,6 +81,43 @@ export class HomePage {
     const desLat = des.lat;
     const desLon = des.lon;
     this.state.setDestination(desLat, desLon)
+
+  }
+
+  async positionSuggestion() {
+    if (this.addressField.value?.length! < 3) return;
+    const address = "https://api.geoapify.com/v1/geocode/autocomplete";
+    const params: any = {
+      text: this.addressField.value,
+      format: "json",
+      apiKey: GEOCODEAPIKEY
+    };
+    const observable = this.http.get<AddressAPIJsonResponseModel>(address, {params: params});
+    const addressResult = await firstValueFrom<AddressAPIJsonResponseModel>(observable);
+    this.addressSuggestions = addressResult.results;
+  }
+
+  selectPositionSuggestion() {
+    // Get the selected suggestion based on the input value
+    const selectedValue = this.addressField.value;
+    const selectedPosition = this.addressSuggestions.find(suggestion => suggestion.formatted === selectedValue);
+
+    if (selectedPosition) {
+      // Handle the selected suggestion, for example, call the placePos function
+      this.placePos(selectedPosition);
+    }
+  }
+
+
+  selectDestinationSuggestion() {
+    // Get the selected suggestion based on the input value
+    const selectedValue = this.addressField.value;
+    const selectedDestination = this.addressSuggestions.find(suggestion => suggestion.formatted === selectedValue);
+
+    if (selectedDestination) {
+      // Handle the selected suggestion, for example, call the placePos function
+      this.placeDes(selectedDestination);
+    }
 
   }
 }
