@@ -7,6 +7,9 @@ using infrastructure.Reposotories;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//Getting swagger to work with bearer tokens
+builder.Services.AddSwaggerGenWithBearerJWT();
+
 // Add services to the container.
 if (builder.Environment.IsDevelopment())
 {
