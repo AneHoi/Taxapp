@@ -35,14 +35,7 @@ export class LoginPage implements OnInit {
       }>>(environment.baseURL + '/account/login', this.loginForm.getRawValue())
       const response = await firstValueFrom(observable);
       this.tokenService.setToken(response.responseData!.token)
-
-      //Setting the current user.
-      //this.currentUser = response.responseData;
-      //Securing that the logged in user accually has the information, and not just an empty object
-      if (this.currentUser !== undefined) {
-        this.state.setCurrentUser(this.currentUser);
-        this.changeNameOfCurrentUser(this.state.getCurrentUser().username);
-      }
+      
       const toast = await this.toastcontroller.create({
         message: 'Login was sucessfull',
         duration: 1233,
@@ -50,6 +43,15 @@ export class LoginPage implements OnInit {
       })
       toast.present();
     } catch (e) {
+    }
+    //Setting the current user.
+    const observable = this.http.get<ResponseDto<User>>(environment.baseURL + '/account/whoami');
+    const response = await firstValueFrom(observable);
+    this.currentUser = response.responseData;
+    //Securing that the logged in user accually has the information, and not just an empty object
+    if (this.currentUser !== undefined) {
+      this.state.setCurrentUser(this.currentUser);
+      this.changeNameOfCurrentUser(this.state.getCurrentUser().username);
     }
   }
 

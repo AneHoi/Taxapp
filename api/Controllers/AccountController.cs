@@ -1,4 +1,6 @@
+using api;
 using api.dtoModels;
+using api.filter;
 using Microsoft.AspNetCore.Mvc;
 using service;
 
@@ -47,10 +49,17 @@ public class AccountController: ControllerBase
         };
     }
 
+    [RequireAuthentication]
     [HttpGet]
     [Route("/account/whoami")]
     public ResponseDto WhoAmI()
     {
-        throw new NotImplementedException();
+        //The only thing saved in the Session Data right now is the user id
+        var data = HttpContext.GetSessionData();
+        var user = _service.Get(data);
+        return new ResponseDto
+        {
+            ResponseData = user
+        };
     }
 }
