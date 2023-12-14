@@ -2,13 +2,13 @@ import {Component, inject} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {State} from 'src/state';
 import {firstValueFrom} from 'rxjs';
-import {TaxiDTO, TaxInfo, ConfirmPriceDTO, Address, AddressAPIJsonResponseModel, Position} from 'src/models'
+import {TaxiDTO, TaxInfo, ConfirmPriceDTO, Address, Results, Geometry, Location} from 'src/models'
 import {environment} from 'src/environments/environment';
 import {ModalController} from "@ionic/angular";
 import {ConfirmPriceComponent} from '../confirm-price/confirm-price.component';
 import {DataContainer} from './../data.service'
 import {FormControl} from '@angular/forms';
-import {GEOCODEAPIKEY, GOOGLEAPIKEY} from '../maps/apikey';
+import {GOOGLEAPIKEY} from '../maps/apikey';
 
 
 @Component({
@@ -60,47 +60,38 @@ export class HomePage {
 
   async destinationSuggestion(): Promise<void> {
     if (this.addressField.value?.length! < 3) return;
-    const address = "https://api.geoapify.com/v1/geocode/autocomplete";
-    const params: any = {
-      text: this.addressField.value,
-      format: "json",
-      apiKey: GEOCODEAPIKEY
-    };
-    const observable = this.http.get<AddressAPIJsonResponseModel>(address, {params: params});
-    const addressResult = await firstValueFrom<AddressAPIJsonResponseModel>(observable);
+    const address = "https://maps.googleapis.com/maps/api/geocode/json?address=" + this.addressField.value + "&key=" + GOOGLEAPIKEY;
+    const observable = this.http.get<Results>(address);
+    const addressResult = await firstValueFrom<Results>(observable);
     this.addressSuggestions = addressResult.results;
   }
 
   placePos(pos: Address) {
-    const posLat = pos.lat;
-    const posLon = pos.lon;
+    const posLat = pos.geometry.location.lat;
+    const posLon = pos.geometry.location.lng;
     this.state.setPosition(posLat, posLon)
+
   }
 
   placeDes(des: Address) {
-    const desLat = des.lat;
-    const desLon = des.lon;
+    const desLat = des.geometry.location.lat;
+    const desLon = des.geometry.location.lng;
     this.state.setDestination(desLat, desLon)
 
   }
 
   async positionSuggestion() {
     if (this.addressField.value?.length! < 3) return;
-    const address = "https://api.geoapify.com/v1/geocode/autocomplete";
-    const params: any = {
-      text: this.addressField.value,
-      format: "json",
-      apiKey: GEOCODEAPIKEY
-    };
-    const observable = this.http.get<AddressAPIJsonResponseModel>(address, {params: params});
-    const addressResult = await firstValueFrom<AddressAPIJsonResponseModel>(observable);
+    const address = "https://maps.googleapis.com/maps/api/geocode/json?address=" + this.addressField.value + "&key=" + GOOGLEAPIKEY;
+    const observable = this.http.get<Results>(address);
+    const addressResult = await firstValueFrom<Results>(observable);
     this.addressSuggestions = addressResult.results;
   }
 
   selectPositionSuggestion() {
     // Get the selected suggestion based on the input value
     const selectedValue = this.addressField.value;
-    const selectedPosition = this.addressSuggestions.find(suggestion => suggestion.formatted === selectedValue);
+    const selectedPosition = this.addressSuggestions.find(suggestion => suggestion.formatted_address === selectedValue);
 
     if (selectedPosition) {
       // Handle the selected suggestion, for example, call the placePos function
@@ -112,7 +103,7 @@ export class HomePage {
   selectDestinationSuggestion() {
     // Get the selected suggestion based on the input value
     const selectedValue = this.addressField.value;
-    const selectedDestination = this.addressSuggestions.find(suggestion => suggestion.formatted === selectedValue);
+    const selectedDestination = this.addressSuggestions.find(suggestion => suggestion.formatted_address === selectedValue);
 
     if (selectedDestination) {
       // Handle the selected suggestion, for example, call the placePos function

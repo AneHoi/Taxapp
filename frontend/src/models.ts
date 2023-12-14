@@ -26,30 +26,67 @@ export class User {
   password?: string;
 }
 
-export interface AddressAPIJsonResponseModel {
+export interface Results {
   results: Address[]
+  status: string
 }
+
 export interface Address {
-  country: string
-  country_code: string
-  state: string
-  city: string
-  village: string
-  postcode: string
-  district: string
-  suburb: string
-  street: string
-  housenumber: string
-  lon: number
-  lat: number
-  formatted: string
-  address_line1: string
-  address_line2: string
-  plus_code: string
-  plus_code_short: string
-  result_type: string
+  address_components: AddressComponent[]
+  formatted_address: string
+  geometry: Geometry
   place_id: string
+  types: string[]
 }
+
+export interface AddressComponent {
+  long_name: string
+  short_name: string
+  types: string[]
+}
+
+export interface Geometry {
+  bounds: Bounds
+  location: Location
+  location_type: string
+  viewport: Viewport
+}
+
+export interface Bounds {
+  northeast: Northeast
+  southwest: Southwest
+}
+
+export interface Northeast {
+  lat: number
+  lng: number
+}
+
+export interface Southwest {
+  lat: number
+  lng: number
+}
+
+export interface Location {
+  lat: number
+  lng: number
+}
+
+export interface Viewport {
+  northeast: Northeast2
+  southwest: Southwest2
+}
+
+export interface Northeast2 {
+  lat: number
+  lng: number
+}
+
+export interface Southwest2 {
+  lat: number
+  lng: number
+}
+
 export class Position {
   lng!: number
   lat!: number
