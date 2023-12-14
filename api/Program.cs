@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using api;
+using api.middleware;
 using service;
 using infrastructure;
 using infrastructure.Reposotories;
@@ -62,7 +63,7 @@ app.UseCors(options =>
 });
 //This makes the headers secure, but it cannot talk with the frontend, if enabled
 //app.UseSecurityHeaders();
-
+app.UseMiddleware<JwtBearerHandler>();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
