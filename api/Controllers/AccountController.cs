@@ -10,10 +10,12 @@ namespace Taxapp.Controllers;
 public class AccountController: ControllerBase
 {
     private readonly AccountService _service;
+    private readonly JwtService _jwtService;
 
-    public AccountController(AccountService service)
+    public AccountController(AccountService service, JwtService jwtService)
     {
         _service = service;
+        _jwtService = jwtService;
     }
 
     [HttpPost]
@@ -21,10 +23,13 @@ public class AccountController: ControllerBase
     public ResponseDto Login([FromBody] LoginDto dto)
     {
         var user = _service.Authenticate(dto.email, dto.password);
+        //Creating a token from the user
+        //The "!" indicates that you are sure nullableString is not null
+        var token = _jwtService.IssueToken(SessionData.FromUser(user!));
         return new ResponseDto
         {
             MessageToClient = "Successfully authenticated",
-            ResponseData = user
+            ResponseData = new { token }
         };
         
     }

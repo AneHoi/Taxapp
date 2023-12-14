@@ -14,6 +14,7 @@ import {BrowserModule} from "@angular/platform-browser";
 import {IonicModule} from "@ionic/angular";
 import { RegisterComponent } from "./register/register.component";
 import { HeaderComponent } from "./header/header.component";
+import { TokenService } from "src/TokenService";
 
 const routes: Routes = [
   { component: HomePage,            path: 'home'      },
@@ -25,7 +26,7 @@ const routes: Routes = [
   declarations: [AppComponent, MapsComponent, HomePage, LoginPage, HeaderComponent, ConfirmPriceComponent, RegisterComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [RouterModule.forRoot(routes), GoogleMapsModule, CommonModule, RouterModule, BrowserModule, IonicModule.forRoot({mode: 'ios'}), HttpClientModule, FormsModule, ReactiveFormsModule],
-  providers: [provideHttpClient(withJsonpSupport())],
+  providers: [provideHttpClient(withJsonpSupport()), TokenService],
   bootstrap: [AppComponent],
 })
 export class AppModule {
