@@ -51,7 +51,16 @@ export class LoginPage implements OnInit {
       toast.present();
     } catch (e) {
     }
+  }
 
+  async logout() {
+    this.tokenService.clearToken();
+
+    (await this.toastcontroller.create({
+      message: 'Successfully logged out',
+      duration: 5000,
+      color: 'success',
+    })).present()
   }
 
   changeNameOfCurrentUser(name: any): void {

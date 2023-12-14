@@ -8,4 +8,12 @@ export class TokenService {
   setToken(token : string){
     this.storage.setItem("token", token);
   }
+
+  getToken() {
+    return this.storage.getItem("token");
+  }
+
+  clearToken() {
+    this.storage.removeItem("token");
+  }
 }
