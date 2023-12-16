@@ -1,4 +1,4 @@
-import {HttpClientModule, provideHttpClient, withJsonpSupport} from "@angular/common/http";
+import {HttpClientJsonpModule, HttpClientModule, provideHttpClient, withJsonpSupport} from "@angular/common/http";
 import {AppComponent} from './app.component';
 import {ConfirmPriceComponent} from './confirm-price/confirm-price.component'
 
