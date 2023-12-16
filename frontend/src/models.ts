@@ -88,10 +88,10 @@ export interface Southwest2 {
 }
 
 export class Position {
-  lng!: number
-  lat!: number
+  lng: number = 0
+  lat: number = 0
 }
 export class Destination {
-  lng!: number
-  lat!: number
+  lng: number = 0
+  lat: number = 0
 }
