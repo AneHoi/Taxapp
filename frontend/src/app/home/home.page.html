@@ -32,12 +32,12 @@
     </ion-popover>
     <br/>
     <ion-item>
-      <ion-select [formControl]="personForm" style="width: auto" label="Persons" placeholder="Amount of people">
+      <ion-select [value]="1" value="1" [(ngModel)]="selectPersons" style="width: auto" label="Persons" >
         <ion-select-option value="1">1</ion-select-option>
         <ion-select-option value="2">2</ion-select-option>
         <ion-select-option value="3">3</ion-select-option>
       </ion-select>
-      <ion-button [disabled]="formgrp.invalid" (click)="searchForPrices(persons)" slot="end">Search</ion-button>
+      <ion-button [disabled]="formgrp.invalid" (click)="searchForPrices(selectPersons)" slot="end">Search</ion-button>
     </ion-item>
 
   </div>

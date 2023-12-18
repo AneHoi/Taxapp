@@ -7,13 +7,13 @@ export interface TaxInfo {
 }
 
 export interface TimeAndDistance {
-  distance: number;
-  time: number;
+  km?: number;
+  min?: number;
 }
 export interface ConfirmPriceDTO {
   companyName: string
-  km: number
-  min: number
+  km?: number
+  min?: number
   persons: number | undefined,
   price: number
 }

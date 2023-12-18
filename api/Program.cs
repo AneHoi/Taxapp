@@ -5,7 +5,6 @@ using infrastructure;
 using infrastructure.Reposotories;
 
 var builder = WebApplication.CreateBuilder(args);
-
 // Add services to the container.
 if (builder.Environment.IsDevelopment())
 {
@@ -18,6 +17,8 @@ if (builder.Environment.IsProduction())
     builder.Services.AddNpgsqlDataSource(Utilities.ProperlyFormattedConnectionString);
 }
 builder.Services.AddScoped<TaxaService>();
+builder.Services.AddScoped<MapsRepository>();
+builder.Services.AddScoped<MapsService>();
 builder.Services.AddScoped<TaxaRepository>();
 builder.Services.AddSingleton<HttpClient>();
 builder.Services.AddSingleton<MailService>();
