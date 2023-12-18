@@ -1,10 +1,14 @@
 using System.Text.Json.Serialization;
 using api;
+using api.middleware;
 using service;
 using infrastructure;
 using infrastructure.Reposotories;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//Getting swagger to work with bearer tokens
+builder.Services.AddSwaggerGenWithBearerJWT();
 // Add services to the container.
 if (builder.Environment.IsDevelopment())
 {
@@ -22,6 +26,7 @@ builder.Services.AddScoped<MapsService>();
 builder.Services.AddScoped<TaxaRepository>();
 builder.Services.AddSingleton<HttpClient>();
 builder.Services.AddSingleton<MailService>();
+builder.Services.AddJwtService();
 builder.Services.AddHttpClient();
 builder.Services.AddControllers();
 
@@ -48,6 +53,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+//For allowing secure headers
+//app.UseSecurityHeaders();
+
+//For allowing cross site scripting and allowing the API to talk with frontend
+
 app.UseCors(options =>
 {
     options.SetIsOriginAllowed(origin => true)
@@ -55,7 +65,9 @@ app.UseCors(options =>
         .AllowAnyHeader()
         .AllowCredentials();
 });
-
+//This makes the headers secure, but it cannot talk with the frontend, if enabled
+//app.UseSecurityHeaders();
+app.UseMiddleware<JwtBearerHandler>();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
