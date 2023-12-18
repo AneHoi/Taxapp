@@ -12,7 +12,7 @@ public class TaxaService
         _taxaRepository = taxaRepository;
     }
 
-    public List<TaxiDTO> GetTaxiPrices(int km, int min, int persons)
+    public List<TaxiDTO> GetTaxiPrices(double km, int min, int persons)
     {
         var taxiDTOs = new List<TaxiDTO>();
         var taxiCompanies = _taxaRepository.GetTaxiCompanies();
