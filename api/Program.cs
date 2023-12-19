@@ -57,15 +57,22 @@ if (app.Environment.IsDevelopment())
 
 //For allowing cross site scripting and allowing the API to talk with frontend
 
+var allowedOrigins = new[]
+{
+    "http://localhost:4200",
+};
+/*
 app.UseCors(options =>
 {
-    options.SetIsOriginAllowed(origin => true)
+    options.SetIsOriginAllowed(origin => allowedOrigins.Contains(origin))
         .AllowAnyMethod()
         .AllowAnyHeader()
         .AllowCredentials();
 });
+*/
 //This makes the headers secure, but it cannot talk with the frontend, if enabled
-//app.UseSecurityHeaders();
+//secrurity policies with the web browser, based on name
+app.UseSecurityHeaders();
 app.UseMiddleware<JwtBearerHandler>();
 app.UseHttpsRedirection();
 

@@ -33,7 +33,6 @@ public class AccountController: ControllerBase
             MessageToClient = "Successfully authenticated",
             ResponseData = new { token }
         };
-        
     }
 
     [HttpPost]
