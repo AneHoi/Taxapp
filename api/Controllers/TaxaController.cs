@@ -23,7 +23,7 @@ public class TaxaController : ControllerBase
 
     [HttpGet]
     [Route("/TaxaApis/GetTaxaPrices/{km},{min},{per}")]
-    public List<TaxiDTO> GetTaxaPrices(int km, int min, int per)
+    public List<TaxiDTO> GetTaxaPrices(double km, int min, int per)
     {
         var taxiPricesDto = _taxaService.GetTaxiPrices(km, min, per);
 

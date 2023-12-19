@@ -22,6 +22,8 @@ if (builder.Environment.IsProduction())
     builder.Services.AddNpgsqlDataSource(Utilities.ProperlyFormattedConnectionString);
 }
 builder.Services.AddScoped<TaxaService>();
+builder.Services.AddScoped<MapsRepository>();
+builder.Services.AddScoped<MapsService>();
 builder.Services.AddScoped<TaxaRepository>();
 builder.Services.AddSingleton<HttpClient>();
 builder.Services.AddSingleton<MailService>();
