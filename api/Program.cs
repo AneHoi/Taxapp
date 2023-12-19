@@ -61,7 +61,7 @@ var allowedOrigins = new[]
 {
     "http://localhost:4200",
 };
-/*
+
 app.UseCors(options =>
 {
     options.SetIsOriginAllowed(origin => allowedOrigins.Contains(origin))
@@ -69,7 +69,7 @@ app.UseCors(options =>
         .AllowAnyHeader()
         .AllowCredentials();
 });
-*/
+
 //This makes the headers secure, but it cannot talk with the frontend, if enabled
 //secrurity policies with the web browser, based on name
 app.UseSecurityHeaders();
