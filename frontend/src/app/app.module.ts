@@ -1,4 +1,4 @@
-import {HttpClientJsonpModule, HttpClientModule, provideHttpClient, withJsonpSupport} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientJsonpModule, HttpClientModule, provideHttpClient, withJsonpSupport} from "@angular/common/http";
 import {AppComponent} from './app.component';
 import {ConfirmPriceComponent} from './confirm-price/confirm-price.component'
 
@@ -14,6 +14,8 @@ import {BrowserModule} from "@angular/platform-browser";
 import {IonicModule} from "@ionic/angular";
 import { RegisterComponent } from "./register/register.component";
 import { HeaderComponent } from "./header/header.component";
+import { TokenService } from "src/TokenService";
+import { AuthHttpInterceptor } from "src/interceptors/auth-http-interceptor";
 
 const routes: Routes = [
   { component: HomePage,            path: 'home'      },
@@ -25,7 +27,9 @@ const routes: Routes = [
   declarations: [AppComponent, MapsComponent, HomePage, LoginPage, HeaderComponent, ConfirmPriceComponent, RegisterComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [RouterModule.forRoot(routes), GoogleMapsModule, CommonModule, RouterModule, BrowserModule, IonicModule.forRoot({mode: 'ios'}), HttpClientModule, FormsModule, ReactiveFormsModule],
-  providers: [provideHttpClient(withJsonpSupport())],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true },
+    provideHttpClient(withJsonpSupport()), TokenService],
   bootstrap: [AppComponent],
 })
 export class AppModule {
