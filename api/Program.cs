@@ -48,6 +48,14 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+
 //For allowing cross site scripting and allowing the API to talk with frontend
 
 var allowedOrigins = new[]
@@ -65,12 +73,8 @@ app.UseCors(options =>
 
 
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+
+
 
 //For allowing secure headers
 //app.UseSecurityHeaders();
