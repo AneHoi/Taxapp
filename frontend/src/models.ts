@@ -92,12 +92,13 @@ export interface Southwest2 {
 }
 
 export class Position {
-  lng!: number
-  lat!: number
+  lat: number | undefined
+  lng: number | undefined
+
 }
 export class Destination {
-  lng!: number
-  lat!: number
+  lat: number | undefined
+  lng: number | undefined
 }
 
 export interface Routes {
