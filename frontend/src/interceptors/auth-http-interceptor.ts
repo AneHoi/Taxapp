@@ -2,7 +2,7 @@ import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/co
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { TokenService } from "src/TokenService";
-
+import {environment} from "src/environments/environment";
 @Injectable()
 export class AuthHttpInterceptor implements HttpInterceptor {
   constructor(private readonly service: TokenService) {}
@@ -18,7 +18,7 @@ export class AuthHttpInterceptor implements HttpInterceptor {
   }
 
   private sameOrigin(req: HttpRequest<any>) {
-    const isRelative = !req.url.startsWith("http://") || !req.url.startsWith("https://");
-    return req.url.startsWith(location.origin) || isRelative;
+    const isRelative = !(req.url.startsWith("http://") || req.url.startsWith("https://"));
+    return req.url.startsWith(environment.baseURL) || isRelative;
   }
 }
