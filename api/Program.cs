@@ -42,10 +42,28 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 });
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+//For allowing cross site scripting and allowing the API to talk with frontend
+
+var allowedOrigins = new[]
+{
+    "http://localhost:4200",
+    "https://taxapp-707f6.web.app"
+};
+app.UseCors(options =>
+{
+    options.SetIsOriginAllowed(origin => allowedOrigins.Contains(origin))
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials();
+});
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -57,20 +75,7 @@ if (app.Environment.IsDevelopment())
 //For allowing secure headers
 //app.UseSecurityHeaders();
 
-//For allowing cross site scripting and allowing the API to talk with frontend
 
-var allowedOrigins = new[]
-{
-    "http://localhost:4200",
-};
-
-app.UseCors(options =>
-{
-    options.SetIsOriginAllowed(origin => allowedOrigins.Contains(origin))
-        .AllowAnyMethod()
-        .AllowAnyHeader()
-        .AllowCredentials();
-});
 
 //This makes the headers secure, but it cannot talk with the frontend, if enabled
 //secrurity policies with the web browser, based on name
