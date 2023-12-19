@@ -2,6 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 
 namespace service;
+
 /**
  * Class for creating and validating tokens
  */
@@ -14,9 +15,10 @@ public class JwtService
     {
         _options = options;
     }
+
     //The algorithm the applications is using to sign the tokens
     private const string SignatureAlgorithm = SecurityAlgorithms.HmacSha512;
-    
+
     public string IssueToken(SessionData data)
     {
         var jwtHandler = new JwtSecurityTokenHandler();
@@ -36,7 +38,7 @@ public class JwtService
         });
         return token;
     }
-    
+
     /**
      * It should only accepts tokens signed by the one algorithm our applications is using.
      */
@@ -62,5 +64,4 @@ public class JwtService
         }, out var securityToken);
         return SessionData.FromDictionary(new JwtPayload(principal.Claims));
     }
-    
 }
