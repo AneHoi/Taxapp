@@ -83,8 +83,6 @@ export class MapsComponent implements OnInit, OnDestroy {
       // Set the zoom level
       this.zoom = zoomLevels[roundedDistance];
     }
-
-
   }
 
 
