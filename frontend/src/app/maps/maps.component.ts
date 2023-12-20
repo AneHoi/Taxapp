@@ -63,9 +63,7 @@ export class MapsComponent implements OnInit, OnDestroy {
 
   setZoom(distance: number): void {
     // Round up the distance to the nearest multiple of 5
-    console.log(distance)
     const roundedDistance = Math.ceil(distance / 5) * 5;
-    console.log(roundedDistance)
     const zoomLevels: { [key: number]: number } = {
       0: 14, 5: 14, 10: 12, 15: 11, 20: 11, 25: 10, 30: 10, 35: 10, 40: 10, 45: 10, 50: 10, 55: 10, 60: 10, 65: 10, 70: 9, 75: 9,
       80: 9, 85: 9, 90: 9, 95: 9, 100: 9, 105: 9, 110: 9, 115: 9, 120: 9, 125: 9, 130: 9, 135: 9, 140: 8, 145: 8, 150: 8, 155: 8,
