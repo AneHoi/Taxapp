@@ -40,7 +40,7 @@ export class ConfirmPriceComponent implements OnInit {
 
   dataContainer = inject(DataContainer);
 
-  constructor(private route: ActivatedRoute, public http: HttpClient, public toastcontroller: ToastController) {
+  constructor(private route: ActivatedRoute, public http: HttpClient, public toastcontroller: ToastController, public modalController: ModalController) {
   }
 
   ngOnInit() {
@@ -65,6 +65,7 @@ export class ConfirmPriceComponent implements OnInit {
       color: "success"
     })
     toast.present();
+    this.modalController.dismiss()
   }
 
 }
