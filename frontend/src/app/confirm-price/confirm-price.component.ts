@@ -11,7 +11,7 @@ import {ModalController, ToastController} from "@ionic/angular";
 @Component({
   selector: 'app-confirm-price',
   template: `
-      <ion-content>
+      <ion-content data-target="#modal">
 
               <img style="max-height: 150px;" [src]="'./assets/' + dataContainer.data.companyName + '.png'"
                    alt="logo of {{dataContainer.data.companyName}}" fill="">
@@ -25,7 +25,7 @@ import {ModalController, ToastController} from "@ionic/angular";
               <ion-input label="Phone Number" label-placement="floating" fill="outline" placeholder="Phone Number">Phone
                   Number
               </ion-input>
-              <ion-button (click)="sendConfirmationEmail()">Confirm</ion-button>
+              <ion-button data-dismiss="modal" (click)="sendConfirmationEmail()">Confirm</ion-button>
 
       </ion-content>
   `,

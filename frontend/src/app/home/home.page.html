@@ -15,21 +15,6 @@
       </datalist>
       <ion-icon name="locate-outline"></ion-icon>
     </ion-item>
-    <br>
-    <ion-item>
-      <ion-input  value="{{ date | date: 'dd.MM.yyyy' }}" id="date" class="ion-text-end"></ion-input>
-      <ion-icon id="dateIcon" style="margin-right: 10px" name="calendar-outline"></ion-icon>
-      <ion-icon name="time-outline"></ion-icon>
-    </ion-item>
-    <ion-popover trigger="date" size="cover">
-      <ng-template>
-        <ion-datetime
-          presentation="date"
-          [(ngModel)]="date"
-          locale="DK"
-        ></ion-datetime>
-      </ng-template>
-    </ion-popover>
     <br/>
     <ion-item>
       <ion-select [value]="1" value="1" [(ngModel)]="selectPersons" style="width: auto" label="Persons" >
