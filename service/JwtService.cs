@@ -32,7 +32,7 @@ public class JwtService
             Issuer = _options.Address,
             Audience = _options.Address,
             //Expires is when the token is valid until.
-            Expires = DateTime.UtcNow.Add(_options.lifetime),
+            Expires = DateTime.UtcNow.Add(_options.Lifetime),
             //Claims are the payload of the token.
             Claims = data.ToDictionary()
         });

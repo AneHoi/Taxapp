@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Text.Json.Serialization;
 using api;
 using api.middleware;
+using api.Middleware;
 using service;
 using infrastructure;
 using infrastructure.Reposotories;
@@ -62,29 +63,30 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// This makes the headers secure, but it cannot talk with the frontend if enabled
+// Security policies with the web browser, based on name
+app.UseSecurityHeaders();
+
 // For allowing cross-site scripting and allowing the API to talk with frontend
 var allowedOrigins = new[]
 {
     "http://localhost:4200",
-    "https://taxapp-707f6.web.app"
+    "https://taxapp-707f6.web.app",
 };
 
 app.UseCors(options =>
 {
-    options.SetIsOriginAllowed(origin => true)
+    options.SetIsOriginAllowed(origin => allowedOrigins.Contains(origin))
         .AllowAnyMethod()
         .AllowAnyHeader()
         .AllowCredentials();
 });
 
-// This makes the headers secure, but it cannot talk with the frontend if enabled
-// Security policies with the web browser, based on name
-app.UseSecurityHeaders();
 
 // Adding middleware for handling JWT Bearer tokens
 app.UseMiddleware<JwtBearerHandler>();
-
+app.UseMiddleware<GlobalExceptionHandler>();
 app.UseHttpsRedirection();
-app.UseAuthorization();
+//app.UseAuthorization();
 app.MapControllers();
 app.Run();
