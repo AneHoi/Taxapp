@@ -1,13 +1,21 @@
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Http;
+using System.Net.Http;
 using System.Text.Json.Serialization;
 using api;
 using api.middleware;
+using api.Middleware;
 using service;
 using infrastructure;
 using infrastructure.Reposotories;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//Getting swagger to work with bearer tokens
+// Getting swagger to work with bearer tokens
 builder.Services.AddSwaggerGenWithBearerJWT();
 
 // Add services to the container.
@@ -21,6 +29,7 @@ if (builder.Environment.IsProduction())
 {
     builder.Services.AddNpgsqlDataSource(Utilities.ProperlyFormattedConnectionString);
 }
+
 builder.Services.AddScoped<TaxaService>();
 builder.Services.AddScoped<MapsRepository>();
 builder.Services.AddScoped<MapsService>();
@@ -31,7 +40,7 @@ builder.Services.AddJwtService();
 builder.Services.AddHttpClient();
 builder.Services.AddControllers();
 
-//The project can access this from everywhere.
+// The project can access this from everywhere.
 builder.Services.AddScoped<AccountService>();
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<PasswordHashRepository>();
@@ -54,14 +63,15 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//For allowing secure headers
-//app.UseSecurityHeaders();
+// This makes the headers secure, but it cannot talk with the frontend if enabled
+// Security policies with the web browser, based on name
+app.UseSecurityHeaders();
 
-//For allowing cross site scripting and allowing the API to talk with frontend
-
+// For allowing cross-site scripting and allowing the API to talk with frontend
 var allowedOrigins = new[]
 {
     "http://localhost:4200",
+    "https://taxapp-707f6.web.app",
 };
 
 app.UseCors(options =>
@@ -72,14 +82,11 @@ app.UseCors(options =>
         .AllowCredentials();
 });
 
-//This makes the headers secure, but it cannot talk with the frontend, if enabled
-//secrurity policies with the web browser, based on name
-app.UseSecurityHeaders();
+
+// Adding middleware for handling JWT Bearer tokens
 app.UseMiddleware<JwtBearerHandler>();
+app.UseMiddleware<GlobalExceptionHandler>();
 app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
+//app.UseAuthorization();
 app.MapControllers();
-
 app.Run();

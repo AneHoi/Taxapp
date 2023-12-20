@@ -5,10 +5,6 @@ using service;
 
 namespace api;
 
-//TODO
-/**
- * What does this do?
- */
 public static class ServiceCollectionExtensions
 {
     /**
@@ -35,11 +31,11 @@ public static class ServiceCollectionExtensions
 
             // If address isn't set in the config then we are likely running in development mode.
             // We will use the address of the server as *issuer* for JWT.
-            if (string.IsNullOrEmpty(options?.address))
+            if (string.IsNullOrEmpty(options?.Address))
             {
                 var server = services.GetRequiredService<IServer>();
                 var addresses = server.Features.Get<IServerAddressesFeature>()?.Addresses;
-                options.address = addresses?.FirstOrDefault();
+                options.Address = addresses?.FirstOrDefault();
             }
 
             return options;
