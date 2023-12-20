@@ -35,7 +35,7 @@ export class LoginPage implements OnInit {
       }>>(environment.baseURL + '/account/login', this.loginForm.getRawValue())
       const response = await firstValueFrom(observable);
       this.tokenService.setToken(response.responseData!.token)
-      
+
       const toast = await this.toastcontroller.create({
         message: 'Login was sucessfull',
         duration: 1233,

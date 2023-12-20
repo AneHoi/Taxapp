@@ -10,7 +10,7 @@
       <br />
       <ion-input label="Password" [formControl]="createNewUserForm.controls.password" label-placement="floating" type="password" placeholder="Password"></ion-input>
       <br />
-      <ion-input label="Confirm Password" label-placement="floating" type="password" placeholder="Confirm Password"></ion-input>
+      <ion-input label="Confirm Password" [formControl]="createNewUserForm.controls.repeatPassword" label-placement="floating" type="password" placeholder="Confirm Password"></ion-input>
       <br />
       <ion-button routerLink="home" (click)="submit()">Register</ion-button>
     </div>

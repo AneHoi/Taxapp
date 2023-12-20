@@ -1,11 +1,12 @@
 import {Component, Input, OnInit, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {ConfirmPriceDTO} from 'src/models';
+import {ConfirmPriceDTO, ResponseDto} from 'src/models';
 import {DataContainer} from '../data.service'
 import {HttpClient} from "@angular/common/http";
 import {environment} from 'src/environments/environment';
 import {firstValueFrom} from "rxjs";
 import {FormsModule} from "@angular/forms";
+import {ModalController, ToastController} from "@ionic/angular";
 
 @Component({
   selector: 'app-confirm-price',
@@ -39,7 +40,7 @@ export class ConfirmPriceComponent implements OnInit {
 
   dataContainer = inject(DataContainer);
 
-  constructor(private route: ActivatedRoute, public http: HttpClient) {
+  constructor(private route: ActivatedRoute, public http: HttpClient, public toastcontroller: ToastController) {
   }
 
   ngOnInit() {
@@ -47,8 +48,8 @@ export class ConfirmPriceComponent implements OnInit {
 
   protected readonly ConfirmPriceDTO: any;
 
-  public async sendConfirmationEmail() {
-    const observable = this.http.post<any>(environment.baseURL + '/TaxaApis/ConfirmationEmail', {
+  async sendConfirmationEmail() {
+    const obs = this.http.post<ResponseDto<string>>(environment.baseURL + '/TaxaApis/ConfirmationEmail', {
       distance: this.dataContainer.data.km,
       duration: this.dataContainer.data.min,
       persons: this.dataContainer.data.persons,
@@ -56,8 +57,14 @@ export class ConfirmPriceComponent implements OnInit {
       company: this.dataContainer.data.companyName,
       toemail: this.emailOfUser,
     });
-    var result = await firstValueFrom<any>(observable);
-
-
+    const response =  await firstValueFrom(obs);
+    var responceString = response.responseData;
+    const toast = await this.toastcontroller.create({
+      message: responceString,
+      duration: 5000,
+      color: "success"
+    })
+    toast.present();
   }
+
 }
