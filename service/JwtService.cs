@@ -25,12 +25,12 @@ public class JwtService
         var token = jwtHandler.CreateEncodedJwt(new SecurityTokenDescriptor
         {
             SigningCredentials = new SigningCredentials(
-                new SymmetricSecurityKey(_options.secret),
+                new SymmetricSecurityKey(_options.Secret),
                 SignatureAlgorithm
             ),
             //Tokens can be issued by one system and used by another (audience)
-            Issuer = _options.address,
-            Audience = _options.address,
+            Issuer = _options.Address,
+            Audience = _options.Address,
             //Expires is when the token is valid until.
             Expires = DateTime.UtcNow.Add(_options.lifetime),
             //Claims are the payload of the token.
@@ -47,7 +47,7 @@ public class JwtService
         var jwtHandler = new JwtSecurityTokenHandler();
         var principal = jwtHandler.ValidateToken(token, new TokenValidationParameters
         {
-            IssuerSigningKey = new SymmetricSecurityKey(_options.secret),
+            IssuerSigningKey = new SymmetricSecurityKey(_options.Secret),
             ValidAlgorithms = new[] { SignatureAlgorithm },
 
             // Default value is true already.
@@ -56,8 +56,8 @@ public class JwtService
             ValidateIssuer = true,
             ValidateLifetime = true,
 
-            ValidAudience = _options.address,
-            ValidIssuer = _options.address,
+            ValidAudience = _options.Address,
+            ValidIssuer = _options.Address,
 
             // Set to 0 when validating on the same system that created the token
             ClockSkew = TimeSpan.FromSeconds(0)
