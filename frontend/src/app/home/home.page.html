@@ -17,7 +17,7 @@
     </ion-item>
     <br/>
     <ion-item>
-      <ion-select [value]="1" value="1" [(ngModel)]="selectPersons" style="width: auto" label="Persons" >
+      <ion-select  [value]="1" value="1" [(ngModel)]="selectPersons" style="width: auto" label="Persons" >
         <ion-select-option value="1">1</ion-select-option>
         <ion-select-option value="2">2</ion-select-option>
         <ion-select-option value="3">3</ion-select-option>
@@ -33,7 +33,7 @@
     <ion-card *ngFor="let taxInfo of state.taxinfos"
               class="taxi-price" (click)="clickedCard(taxInfo)"
               [attr.data-testid]="'card_'+taxInfo.companyName"
-              style="max-width: 200px"
+              style="max-width: 500px"
     >
       <div>
         <ion-card-title style="display: flex; align-items: center;justify-content: center;">
