@@ -14,7 +14,6 @@ export class UserHandler {
   private logInOutValue = new Subject<string>();
   logInOutValue$ = this.logInOutValue.asObservable();
 
-
   /**
    * When the value is passed into this method, it is going to observe
    * a change and all the classes that subscribed will react to it

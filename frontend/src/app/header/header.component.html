@@ -6,5 +6,5 @@
   <div class="centerElements">
   </div>
   <p class="TaxappText" slot="end">{{ dynamicText }} </p>
-  <ion-button slot="end" routerLink="login">{{loginOut}}</ion-button>
+  <ion-button slot="end" (click)="loginoutUser()" routerLink="login">{{loginOut}}</ion-button>
 </ion-toolbar>
