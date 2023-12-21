@@ -8,7 +8,7 @@ import {environment} from "src/environments/environment";
 
 @Component({
   template: `
-    <google-map *ngIf="apiLoaded" height="400px" width="100%" [center]="center" [zoom]="zoom">
+    <google-map *ngIf="apiLoaded" style="height: 100%; width: 100%" [center]="center" [zoom]="zoom">
       <map-marker *ngIf="pos != undefined" [position]="convertToLatLngLiteral(pos)" [options]="markerOptions"/>
       <map-marker *ngIf="des != undefined" [position]="convertToLatLngLiteral(des)" [options]="markerOptions"/>
       <map-directions
