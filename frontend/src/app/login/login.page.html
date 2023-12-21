@@ -6,10 +6,9 @@
       <br />
       <ion-input label="Password" [formControl]="loginForm.controls.password" label-placement="floating" type="password" placeholder="Password"></ion-input>
       <br />
-      <ion-button (click)="login()">Login</ion-button>
+      <ion-button (click)="loginOut()">{{dynamicLogInOutText}}</ion-button>
       <!--ion-button [routerLink]="['/home']" >Login</ion-button-->
       <p>Have not got an account yet? <a routerLink="/register">Create an account here</a></p>
-      <ion-button (click)="logout()">Logout</ion-button>
     </div>
   </section>
 </ion-content>

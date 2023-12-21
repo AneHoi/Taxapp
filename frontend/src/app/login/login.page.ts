@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {State} from 'src/state';
-import {firstValueFrom} from "rxjs";
+import {firstValueFrom, Subscription} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {ResponseDto, User} from 'src/models';
 import {FormBuilder, Validators} from "@angular/forms";
@@ -22,10 +22,27 @@ export class LoginPage implements OnInit {
     password: ['', Validators.minLength(8)],
   })
 
+  private subscription: Subscription;
+  dynamicLogInOutText: string = 'login';
+
   constructor(public state: State, private tokenService: TokenService, private userHandler: UserHandler, public http: HttpClient, public fb: FormBuilder, public toastcontroller: ToastController) {
+    this.subscription = this.userHandler.logInOutValue$.subscribe((value) => {
+      this.dynamicLogInOutText = value;
+    })
   }
 
   ngOnInit() {
+  }
+
+
+  //check if we should login ot logout
+  loginOut() {
+    if (this.dynamicLogInOutText == 'login'){
+      this.login()
+    }else {
+      this.logout()
+    }
+
   }
 
   async login() {
@@ -38,7 +55,7 @@ export class LoginPage implements OnInit {
 
       const toast = await this.toastcontroller.create({
         message: 'Login was sucessfull',
-        duration: 1233,
+        duration: 5000,
         color: "success"
       })
       toast.present();
@@ -52,6 +69,7 @@ export class LoginPage implements OnInit {
     if (this.currentUser !== undefined) {
       this.state.setCurrentUser(this.currentUser);
       this.changeNameOfCurrentUser(this.state.getCurrentUser().username);
+      this.userHandler.updateLoginOut("logout");
     }
   }
 
@@ -63,11 +81,13 @@ export class LoginPage implements OnInit {
       duration: 5000,
       color: 'success',
     })).present()
+
+    this.userHandler.updateLoginOut("login");
+    this.userHandler.updateCurrentUser('');
   }
 
   changeNameOfCurrentUser(name: any): void {
     this.userHandler.updateCurrentUser(name);
   }
-
 
 }
