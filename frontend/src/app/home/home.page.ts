@@ -56,7 +56,6 @@ export class HomePage {
 
 
   async clickedCard(taxInfo: TaxInfo) {
-    console.log(taxInfo)
     const confirmPriceDTO: ConfirmPriceDTO = this.convertToConfirmPriceDTO(taxInfo);
     this.data.data = confirmPriceDTO;
     const modal = await this.modalController.create({

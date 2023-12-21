@@ -1,16 +1,18 @@
 import {Component, Input, OnInit, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {ConfirmPriceDTO} from 'src/models';
+import {ConfirmPriceDTO, ResponseDto} from 'src/models';
 import {DataContainer} from '../data.service'
 import {HttpClient} from "@angular/common/http";
 import {environment} from 'src/environments/environment';
 import {firstValueFrom} from "rxjs";
-import {FormsModule} from "@angular/forms";
+import {FormControl, FormsModule, Validators} from "@angular/forms";
+import {ModalController, ToastController} from "@ionic/angular";
+import { State } from 'src/state';
 
 @Component({
   selector: 'app-confirm-price',
   template: `
-      <ion-content>
+      <ion-content data-target="#modal">
 
               <img style="max-height: 150px;" [src]="'./assets/' + dataContainer.data.companyName + '.png'"
                    alt="logo of {{dataContainer.data.companyName}}" fill="">
@@ -18,13 +20,13 @@ import {FormsModule} from "@angular/forms";
               <p>Duration: {{ dataContainer.data.min }} min</p>
               <p>Persons: {{ dataContainer.data.persons }}</p>
               <p>Price: {{ dataContainer.data.price }} DKK </p>
-              <ion-input label="Email" type="text" [(ngModel)]="emailOfUser" label-placement="floating" fill="outline"
-                         placeholder="Email">Email
+              <ion-input label="Email" labelPlacement="stacked" type="text" [formControl]="emailForm" [(ngModel)]="emailOfUser" fill="outline"
+                         placeholder="Enter Email">
               </ion-input>
-              <ion-input label="Phone Number" label-placement="floating" fill="outline" placeholder="Phone Number">Phone
+              <ion-input label="Phone Number" label-placement="stacked" fill="outline" placeholder="Enter Number">Phone
                   Number
               </ion-input>
-              <ion-button (click)="sendConfirmationEmail()">Confirm</ion-button>
+              <ion-button data-dismiss="modal" [disabled]="emailForm.invalid" (click)="sendConfirmationEmail()">Confirm</ion-button>
 
       </ion-content>
   `,
@@ -32,23 +34,28 @@ import {FormsModule} from "@angular/forms";
 })
 export class ConfirmPriceComponent implements OnInit {
   emailOfUser: string | undefined;
+  emailForm = new FormControl('', [Validators.required, Validators.minLength(3)]);
+
 
   @Input()
   data!: ConfirmPriceDTO;
 
-
   dataContainer = inject(DataContainer);
-
-  constructor(private route: ActivatedRoute, public http: HttpClient) {
+  constructor(private route: ActivatedRoute, public state: State, public http: HttpClient, public toastcontroller: ToastController, public modalController: ModalController) {
   }
 
   ngOnInit() {
+    if(this.state.getCurrentUser().email !== undefined){
+      this.emailOfUser = this.state.getCurrentUser().email;
+    }
+    else {
+    }
   }
 
   protected readonly ConfirmPriceDTO: any;
 
-  public async sendConfirmationEmail() {
-    const observable = this.http.post<any>(environment.baseURL + '/TaxaApis/ConfirmationEmail', {
+  async sendConfirmationEmail() {
+    const obs = this.http.post<ResponseDto<string>>(environment.baseURL + '/TaxaApis/ConfirmationEmail', {
       distance: this.dataContainer.data.km,
       duration: this.dataContainer.data.min,
       persons: this.dataContainer.data.persons,
@@ -56,8 +63,15 @@ export class ConfirmPriceComponent implements OnInit {
       company: this.dataContainer.data.companyName,
       toemail: this.emailOfUser,
     });
-    var result = await firstValueFrom<any>(observable);
-
-
+    const response =  await firstValueFrom(obs);
+    var responceString = response.responseData;
+    const toast = await this.toastcontroller.create({
+      message: responceString,
+      duration: 5000,
+      color: "success"
+    })
+    toast.present();
+    this.modalController.dismiss()
   }
+
 }

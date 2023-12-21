@@ -22,8 +22,8 @@ public class TaxaService
             {
                 CompanyName = taxiCompaniesQuery.companyName,
                 CompanyLogo = taxiCompaniesQuery.companyImgUrl,
-                TaxiPrice = (taxiCompaniesQuery.startPrice + taxiCompaniesQuery.kmPrice * km +
-                             taxiCompaniesQuery.minPrice * min) * persons
+                TaxiPrice = Math.Round((taxiCompaniesQuery.startPrice + taxiCompaniesQuery.kmPrice * km +
+                             taxiCompaniesQuery.minPrice * min) * persons)
             };
             taxiDTOs.Add(taxiDto);
         }

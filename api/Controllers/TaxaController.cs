@@ -1,3 +1,4 @@
+using api.dtoModels;
 using api.TransferModels;
 using infrastructure.datamodels;
 using Microsoft.AspNetCore.Mvc;
@@ -33,12 +34,12 @@ public class TaxaController : ControllerBase
 
     [HttpPost]
     [Route("/TaxaApis/ConfirmationEmail")]
-    public async Task<object> ConfirmationEmail(ConfirmationEmailDTO dto)
+    public ResponseDto ConfirmationEmail(ConfirmationEmailDTO dto)
     {
         _mailService.SendEmail(dto);
-        return new
+        return new ResponseDto
         {
-            message = "Order has been placed - an Email has been sent to you!"
+            ResponseData = "Order has been placed - an Email has been sent to you!"
         }; //This should then be shown to the client in the UI
     }
 }

@@ -8,7 +8,7 @@ import {environment} from "src/environments/environment";
 
 @Component({
   template: `
-    <google-map *ngIf="apiLoaded" height="400px" width="750px" [center]="center" [zoom]="zoom">
+    <google-map *ngIf="apiLoaded" style="height: 100%; width: 100%" [center]="center" [zoom]="zoom">
       <map-marker *ngIf="pos != undefined" [position]="convertToLatLngLiteral(pos)" [options]="markerOptions"/>
       <map-marker *ngIf="des != undefined" [position]="convertToLatLngLiteral(des)" [options]="markerOptions"/>
       <map-directions
@@ -63,11 +63,8 @@ export class MapsComponent implements OnInit, OnDestroy {
 
   setZoom(distance: number): void {
     // Round up the distance to the nearest multiple of 5
-    console.log(distance)
     const roundedDistance = Math.ceil(distance / 5) * 5;
-    console.log(roundedDistance)
-    const zoomLevels: { [key: number]: number } = {
-      0: 14, 5: 14, 10: 12, 15: 11, 20: 11, 25: 10, 30: 10, 35: 10, 40: 10, 45: 10, 50: 10, 55: 10, 60: 10, 65: 10, 70: 9, 75: 9,
+    const zoomLevels: { [key: number]: number } = { 0: 14, 5: 14, 10: 12, 15: 11, 20: 11, 25: 10, 30: 10, 35: 10, 40: 10, 45: 10, 50: 10, 55: 10, 60: 10, 65: 10, 70: 9, 75: 9,
       80: 9, 85: 9, 90: 9, 95: 9, 100: 9, 105: 9, 110: 9, 115: 9, 120: 9, 125: 9, 130: 9, 135: 9, 140: 8, 145: 8, 150: 8, 155: 8,
       160: 8, 165: 8, 170: 8, 175: 8, 180: 8, 185: 8, 190: 8, 195: 8, 200: 8, 205: 8, 210: 8, 215: 8, 220: 8, 225: 8, 230: 8, 235: 8,
       240: 8, 245: 8, 250: 8, 255: 8, 260: 8, 265: 8, 270: 8, 275: 8, 280: 7, 285: 7, 290: 7, 295: 7, 300: 7, 305: 7, 310: 7, 315: 7,
@@ -140,7 +137,7 @@ export class MapsComponent implements OnInit, OnDestroy {
       this.addMarker(this.posMarkerPositions, this.pos);
     }
 
-    if (this.des != undefined) {
+    if (this.des != undefined && this.pos != undefined) {
       this.addMarker(this.desMarkerPositions, this.des!);
       this.calculateRoute(this.des!, this.pos!);
     }
